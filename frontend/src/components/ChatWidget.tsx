@@ -127,7 +127,7 @@ export function ChatWidget() {
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[80%] rounded-xl px-3.5 py-2 leading-relaxed ${expanded ? 'text-base px-4 py-2.5' : 'text-sm'} ${
+                  className={`max-w-[80%] whitespace-pre-wrap rounded-xl px-3.5 py-2 leading-relaxed ${expanded ? 'text-base px-4 py-2.5' : 'text-sm'} ${
                     m.role === 'user' ? 'bg-maroon-800 text-white' : 'bg-slate-100 text-slate-900'
                   }`}
                 >

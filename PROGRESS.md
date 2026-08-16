@@ -95,6 +95,11 @@ Format:
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
 
+## 2026-08-16 — Chat replies with numbered lists were rendering as one wall of text
+- Did: user reported list-style replies (e.g. "list your accounts") coming back as one unbroken paragraph. Curl-verified the model's raw JSON reply already had proper `\n` line breaks — the bug was purely CSS: the message bubble had no `whitespace-pre-wrap`, so the browser's default whitespace collapsing ate every newline. One-class fix
+- Tech: no new deps
+- Issues: none — browser-verified a list-style reply now renders with real line breaks, build clean
+
 ## 2026-08-16 — Chat widget quick-action chips
 - Did: opening the chat used to just show a text greeting with no hint of what the assistant could actually do. Added 5 clickable quick-action chips (icons + label) shown right after the greeting — explore accounts/cards/loans, raise a ticket, check ticket status. Clicking one sends that message immediately; chips disappear once the conversation starts so they don't clutter later turns
 - Tech: refactored the send logic into a shared sendText() used by both the form submit and the chip clicks, no new deps
