@@ -13,10 +13,11 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
 **Tech:** git only.
 
 ## Phase 1 — Core banking website (no AI yet)
-- [ ] Go backend (Gin/Echo) + PostgreSQL: signup/login (JWT)
+- [ ] Go backend (Gin) + PostgreSQL: signup/login (JWT)
 - [ ] Accounts, balances, transaction history
 - [ ] Simulated fund transfer
-- [ ] React frontend (Vite + Tailwind): auth pages, dashboard, transactions, transfer
+- [x] React frontend (Vite + Tailwind): auth pages, dashboard, transactions, transfer
+      — built against mock data, ready to flip to real backend
 
 **Tech:** Go, Gin/Echo, GORM, PostgreSQL (local or Supabase free tier), React, Vite,
 Tailwind, JWT.

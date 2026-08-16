@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --color-navy-950: #060f1f;
+  --color-navy-900: #0b1e3a;
+  --color-navy-800: #122b4f;
+  --color-navy-700: #1a3a68;
+  --color-navy-600: #234c86;
+  --color-navy-500: #2f61a3;
+  --color-navy-400: #5885c2;
+  --color-navy-100: #e5edf8;
+  --color-navy-50: #f3f7fc;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}

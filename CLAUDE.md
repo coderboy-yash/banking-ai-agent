@@ -55,22 +55,15 @@ These are scope decisions, not gaps to "fix":
 Populated as each service is scaffolded (see PROJECT_PLAN.md Phase 1+).
 
 - `backend/`: TBD (Go run command, DB setup)
-- `frontend/`: TBD (`npm run dev`)
+- `frontend/`: `cp .env.example .env && npm install && npm run dev` (mock data by default, `VITE_USE_MOCK=false` once backend exists)
 - `agent-service/`: TBD (`uvicorn` entrypoint)
 
 ## Conventions
 
 - Commit at the end of each meaningful chunk of progress (end of a phase or working
   sub-feature), push at the end of the day.
-- **Keep the three docs in sync — do this every time, not just at phase boundaries:**
-  1. Update the checkboxes in `PROJECT_PLAN.md` as work completes.
-  2. Update this file (`CLAUDE.md`) whenever architecture, tech stack, or scope
-     actually changes (not for routine progress — just when a decision here goes
-     stale).
-  3. Add a new dated entry to `PROGRESS.md` in plain English: what was done, which
-     tech was touched, and any issues/failures/workarounds hit. This is what makes it
-     possible to trace back and spot where something went wrong later, so don't skip
-     it even for small steps.
-- If requirements change mid-project, update `PROJECT_PLAN.md` (and `CLAUDE.md` if it
-  affects architecture/scope) immediately, and log the change in `PROGRESS.md` — don't
-  let the docs drift from what's actually being built.
+- Keep docs in sync every time progress happens, not just at phase boundaries:
+  `PROJECT_PLAN.md` checkboxes, `CLAUDE.md` only if architecture/scope actually
+  changed, `PROGRESS.md` short entry always.
+- Keep all docs (including this one) short — one-liners over paragraphs. This is a
+  long project; verbose docs become their own problem over time.
