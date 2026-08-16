@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
+import { ChatWidget } from './components/ChatWidget'
 import Home from './pages/Home'
 import Accounts from './pages/Accounts'
 import Cards from './pages/Cards'
@@ -58,6 +59,7 @@ export default function App() {
         />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      <ChatWidget />
     </AuthProvider>
   )
 }

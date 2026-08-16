@@ -56,7 +56,7 @@ Populated as each service is scaffolded (see PROJECT_PLAN.md Phase 1+).
 
 - `backend/`: `docker compose up -d` (Postgres on host port 5433, see docker-compose.yml — 5432 was taken by an existing native install), `cp .env.example .env`, `go run ./cmd/server`
 - `frontend/`: `cp .env.example .env && npm install && npm run dev` (mock data by default, `VITE_USE_MOCK=false` once backend exists)
-- `agent-service/`: TBD (`uvicorn` entrypoint)
+- `agent-service/`: `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt`, `cp .env.example .env` (add your own `GROQ_API_KEY`), `uvicorn app.main:app --reload --port 8001`
 
 ## Conventions
 

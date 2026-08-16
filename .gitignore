@@ -8,14 +8,15 @@ frontend/dist/
 frontend/.vite/
 
 # Python
-agent-service/__pycache__/
-agent-service/*.pyc
+agent-service/**/__pycache__/
+agent-service/**/*.pyc
 agent-service/.venv/
 agent-service/venv/
 agent-service/.pytest_cache/
 
 # Vector store / local data
 agent-service/chroma_db/
+agent-service/*.sqlite*
 
 # Env & secrets
 .env

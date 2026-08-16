@@ -22,6 +22,12 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Phase 2: agent-service live (LangGraph + Groq chatbot)
+- Did: built the actual AI layer — FastAPI + LangGraph StateGraph, one chatbot node, SQLite checkpointer for per-session memory (survives restarts), system prompt grounded in the site's real account/card/loan facts with an explicit guardrail against inventing real balance/transaction data. Added a floating chat widget to the React frontend, wired globally (every page), session id persisted in localStorage
+- Tech: Python, FastAPI, LangGraph, langchain-groq (Llama 3.3 70B via Groq free tier), python-dotenv
+- Issues: user's Groq key initially landed in the tracked `.env.example` instead of gitignored `.env` — moved it before anything got committed
+- Status: verified live — real Groq replies, multi-turn memory confirmed (asked the assistant to recall a fact from 2 turns earlier, it did), guardrail confirmed (asked for "my balance", it correctly refused and pointed to /dashboard instead of inventing a number), no console/CORS errors, production build clean
+
 ## 2026-08-16 — Fixed auth-page redirect bug, expanded signup form
 - Did: (bug) Login/Signup didn't redirect away when already authenticated — user could land back on the signup form while logged in; now both redirect to /dashboard if a session exists. (feature) expanded signup to collect phone, DOB, PAN, annual income, employment type — sectioned "Personal details" / "Financial details" like the IDFC reference, explicit "demo only, nothing verified" disclaimer. This is plain data entry (no OTP/live-verification step), giving future agent features (budgeting, loan eligibility, document verification) real structured data to work with
 - Tech: extended User model + signup request/response on both frontend (types, mock store) and backend (Go struct + migration via AutoMigrate); backend restarted to pick up schema

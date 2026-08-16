@@ -24,9 +24,9 @@ Tailwind, JWT.
 **Feasibility:** standard CRUD app, no AI dependency, fully achievable.
 
 ## Phase 2 — Chatbot foundation
-- [ ] `agent-service` FastAPI + LangGraph skeleton
-- [ ] Chat widget in React, wired to `agent-service` over REST/SSE
-- [ ] Basic conversational agent (greeting, simple FAQ)
+- [x] `agent-service` FastAPI + LangGraph skeleton
+- [x] Chat widget in React, wired to `agent-service` (sync REST; SSE streaming is Phase 8)
+- [x] Basic conversational agent (greeting, simple FAQ) — real Groq LLM, per-session memory via SQLite checkpointer, verified multi-turn
 
 **Tech:** LangChain, LangGraph, FastAPI, Groq free tier (or Gemini free tier / Ollama
 locally).
