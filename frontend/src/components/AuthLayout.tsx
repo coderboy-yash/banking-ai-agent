@@ -1,21 +1,48 @@
 import type { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
-import { Landmark } from 'lucide-react'
+import { CheckCircle2, Landmark } from 'lucide-react'
+import { PublicHeader } from './PublicHeader'
+import { PublicFooter } from './PublicFooter'
+
+const benefits = ['No minimum balance', 'Instant transfers, no fees', 'FDIC-style protection on every account']
 
 export function AuthLayout({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <Link to="/" className="flex items-center justify-center gap-2 mb-8">
-          <Landmark className="size-6 text-maroon-900" strokeWidth={1.75} />
-          <span className="text-maroon-900 font-semibold text-lg tracking-tight">Yash Bank</span>
-        </Link>
-        <div className="rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
-          <h1 className="text-xl font-semibold text-slate-900">{title}</h1>
-          <p className="mt-1 text-sm text-slate-500">{subtitle}</p>
-          <div className="mt-6">{children}</div>
+    <div className="min-h-screen flex flex-col">
+      <PublicHeader />
+
+      <div className="flex-1 grid md:grid-cols-2">
+        <div className="hidden md:flex flex-col justify-center bg-black text-white px-16 py-16">
+          <Landmark className="size-8" strokeWidth={1.5} />
+          <h2 className="mt-6 text-3xl font-semibold leading-tight">
+            Banking that keeps up with you.
+          </h2>
+          <ul className="mt-8 space-y-4">
+            {benefits.map((b) => (
+              <li key={b} className="flex items-center gap-3 text-white/80">
+                <CheckCircle2 className="size-5 text-maroon-500 shrink-0" strokeWidth={1.75} />
+                {b}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-12 w-64 rounded-2xl bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
+            <Landmark className="size-6 text-white/80" strokeWidth={1.5} />
+            <p className="mt-6 text-white/60 text-xs tracking-wide">CURRENT BALANCE</p>
+            <p className="text-white text-2xl font-semibold tabular mt-1">$4,382.17</p>
+            <p className="mt-6 text-white/50 text-xs tracking-widest">•••• •••• •••• 4821</p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center px-6 py-16 bg-slate-50">
+          <div className="w-full max-w-sm">
+            <h1 className="text-2xl font-semibold text-slate-900">{title}</h1>
+            <p className="mt-1.5 text-sm text-slate-500">{subtitle}</p>
+            <div className="mt-7">{children}</div>
+          </div>
         </div>
       </div>
+
+      <PublicFooter />
     </div>
   )
 }
