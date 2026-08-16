@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Chatbot was answering off-topic questions, fixed
+- Did: assistant was happily answering math, general knowledge, current events, personal questions — not scoped to banking at all. Added an explicit SCOPE instruction to the system prompt: decline off-topic questions in one line and redirect to banking, don't answer them first
+- Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
+- Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
+
 ## 2026-08-16 — Phase 2: agent-service live (LangGraph + Groq chatbot)
 - Did: built the actual AI layer — FastAPI + LangGraph StateGraph, one chatbot node, SQLite checkpointer for per-session memory (survives restarts), system prompt grounded in the site's real account/card/loan facts with an explicit guardrail against inventing real balance/transaction data. Added a floating chat widget to the React frontend, wired globally (every page), session id persisted in localStorage
 - Tech: Python, FastAPI, LangGraph, langchain-groq (Llama 3.3 70B via Groq free tier), python-dotenv
