@@ -8,4 +8,8 @@ export const images = {
   atmKeypad: unsplash('1601597111158-2fceff292cdc', 1400),
   signingDocs: unsplash('1450101499163-c8848c66ca85', 1400),
   cafePayment: unsplash('1554774853-b415df9eeb92', 1000),
+  textureWave: unsplash('1620121692029-d088224ddc74', 700),
+  textureInk: unsplash('1541701494587-cb58502866ab', 700),
+  textureGold: unsplash('1610375461369-d613b564f4c4', 700),
+  textureNightEarth: unsplash('1451187580459-43490279c0fa', 700),
 }

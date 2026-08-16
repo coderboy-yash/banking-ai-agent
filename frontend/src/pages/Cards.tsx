@@ -9,6 +9,7 @@ import { images } from '../lib/images'
 interface CardOffer {
   icon: LucideIcon
   name: string
+  image: string
   gradient: string
   annualFee: string
   bestFor: string
@@ -19,7 +20,8 @@ const debitCards: CardOffer[] = [
   {
     icon: Wallet,
     name: 'Classic Debit Card',
-    gradient: 'from-slate-700 to-slate-950',
+    image: images.textureWave,
+    gradient: 'from-slate-900/90 to-slate-950/90',
     annualFee: 'Free for the first year, ₹150 thereafter',
     bestFor: 'Everyday spending and ATM access',
     benefits: [
@@ -32,7 +34,8 @@ const debitCards: CardOffer[] = [
   {
     icon: Landmark,
     name: 'Platinum Debit Card',
-    gradient: 'from-maroon-800 to-black',
+    image: images.textureInk,
+    gradient: 'from-maroon-900/90 to-black/90',
     annualFee: '₹750 per year',
     bestFor: 'Higher limits and travel perks',
     benefits: [
@@ -48,7 +51,8 @@ const creditCards: CardOffer[] = [
   {
     icon: CreditCard,
     name: 'Rewards Credit Card',
-    gradient: 'from-maroon-700 to-maroon-950',
+    image: images.textureGold,
+    gradient: 'from-maroon-800/90 to-maroon-950/90',
     annualFee: '₹500, waived on annual spend above ₹1,00,000',
     bestFor: 'Everyday spends, cashback and reward points',
     benefits: [
@@ -61,7 +65,8 @@ const creditCards: CardOffer[] = [
   {
     icon: Plane,
     name: 'Travel Credit Card',
-    gradient: 'from-gold-500 to-maroon-950',
+    image: images.textureNightEarth,
+    gradient: 'from-gold-500/80 to-maroon-950/90',
     annualFee: '₹2,500, waived on annual spend above ₹3,00,000',
     bestFor: 'Frequent flyers and international spends',
     benefits: [
@@ -78,14 +83,18 @@ function CardRow({ card }: { card: CardOffer }) {
   return (
     <div className="rounded-xl border-2 border-maroon-400 bg-gradient-to-br from-maroon-800 to-maroon-950 overflow-hidden">
       <div className="p-6 pb-0">
-        <div className={`rounded-2xl border-2 border-maroon-400 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
-          <div className="flex items-center justify-between">
-            <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
-            <Icon className="size-6 text-white/80" strokeWidth={1.5} />
-          </div>
-          <div>
-            <p className="text-white font-semibold">{card.name}</p>
-            <p className="mt-3 text-white/50 text-xs tracking-widest">•••• •••• •••• 8842</p>
+        <div className="relative rounded-2xl border-2 border-maroon-400 overflow-hidden shadow-xl aspect-[1.586/1]">
+          <img src={card.image} alt="" className="absolute inset-0 size-full object-cover" />
+          <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient}`} />
+          <div className="relative p-5 h-full flex flex-col justify-between">
+            <div className="flex items-center justify-between">
+              <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
+              <Icon className="size-6 text-white/80" strokeWidth={1.5} />
+            </div>
+            <div>
+              <p className="text-white font-semibold">{card.name}</p>
+              <p className="mt-3 text-white/50 text-xs tracking-widest">•••• •••• •••• 8842</p>
+            </div>
           </div>
         </div>
       </div>

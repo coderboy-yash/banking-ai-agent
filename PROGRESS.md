@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Photo-textured card faces on Cards page
+- Did: replaced the flat color gradients on the debit/credit card visuals with real photo textures (abstract wave, ink smoke, gold bars, earth at night) under a tinted brand-color overlay — same layering technique as the page banners. Picked images thematically: gold bars for Rewards, earth-at-night city lights for Travel
+- Tech: 4 new verified Unsplash URLs added to lib/images.ts, no new deps
+- Issues: none — browser-verified, login regression passes, build clean
+
 ## 2026-08-16 — Product cards: solid red background, white text
 - Did: white-card-with-red-border still read as flat/plain — converted Accounts/Loans (ProductCard) and the Cards page detail panels to solid maroon gradient backgrounds with white text, gold accents for rates/checkmarks, white CTA buttons. Scoped to the public marketing pages only — left the authenticated dashboard (Dashboard/Transactions/Transfer/Profile) as white panels since financial data readability matters more there and it wasn't part of the complaint
 - Tech: no new deps
