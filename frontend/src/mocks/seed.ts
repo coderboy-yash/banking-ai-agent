@@ -5,7 +5,7 @@ export const DEMO_PASSWORD = 'password123'
 
 export const seedUser: User = {
   id: 'u1',
-  name: 'Jordan Lee',
+  name: 'Yash Nigam',
   email: DEMO_EMAIL,
   phone: '9876543210',
   dateOfBirth: '1994-06-12',

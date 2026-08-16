@@ -95,6 +95,11 @@ Format:
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
 
+## 2026-08-17 — Demo user renamed to Yash Nigam
+- Did: swapped the placeholder "Jordan Lee" for "Yash Nigam" — mock seed data and the real Postgres demo user (direct UPDATE, same as the earlier account/transaction seeding)
+- Tech: no new deps
+- Issues: none — browser-verified name shows correctly everywhere (header, avatar initials, greeting), build clean
+
 ## 2026-08-17 — Demo credentials in README + Loans/Cards on dashboard
 - Did: added demo login (demo@yashbank.com / password123) prominently to the root README so anyone cloning the repo can try it without setup friction. Added a "Your Loans" section (Car Loan — approved, 80% paid/20% due with a progress bar, approved date; Home Loan — pending, applied date, full principal awaiting disbursal) and a "Your Cards" section (debit + credit card, credit card shows outstanding/limit utilization, both show recent card-tagged activity) to the Dashboard
 - Tech: new presentational data (data/customerProfile.ts) + two new components (LoanCard, IssuedCardTile) — not wired to a backend table yet, this is demo/display data giving future agent features (loan eligibility, spend analysis) something concrete to reason over
