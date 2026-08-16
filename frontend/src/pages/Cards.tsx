@@ -76,18 +76,20 @@ const creditCards: CardOffer[] = [
 function CardRow({ card }: { card: CardOffer }) {
   const Icon = card.icon
   return (
-    <div className="grid md:grid-cols-[280px_1fr] gap-6 items-start rounded-xl border-2 border-slate-300 p-6">
-      <div className={`rounded-2xl border-2 border-white/25 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
-        <div className="flex items-center justify-between">
-          <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
-          <Icon className="size-6 text-white/80" strokeWidth={1.5} />
-        </div>
-        <div>
-          <p className="text-white font-semibold">{card.name}</p>
-          <p className="mt-3 text-white/50 text-xs tracking-widest">•••• •••• •••• 8842</p>
+    <div className="rounded-xl border-2 border-maroon-500 bg-white overflow-hidden">
+      <div className="p-6 pb-0">
+        <div className={`rounded-2xl border-2 border-maroon-500 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
+          <div className="flex items-center justify-between">
+            <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
+            <Icon className="size-6 text-white/80" strokeWidth={1.5} />
+          </div>
+          <div>
+            <p className="text-white font-semibold">{card.name}</p>
+            <p className="mt-3 text-white/50 text-xs tracking-widest">•••• •••• •••• 8842</p>
+          </div>
         </div>
       </div>
-      <div>
+      <div className="p-6">
         <h3 className="text-lg font-semibold text-slate-900">{card.name}</h3>
         <p className="mt-1 text-sm text-slate-500">{card.bestFor}</p>
         <p className="mt-2 text-sm text-slate-700">
@@ -125,7 +127,7 @@ export default function Cards() {
 
       <section className="max-w-7xl mx-auto px-6 py-16">
         <h2 className="text-2xl font-semibold text-slate-900">Debit Cards</h2>
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 grid sm:grid-cols-2 gap-6">
           {debitCards.map((c) => (
             <CardRow key={c.name} card={c} />
           ))}
@@ -134,7 +136,7 @@ export default function Cards() {
 
       <section className="max-w-7xl mx-auto px-6 pb-16">
         <h2 className="text-2xl font-semibold text-slate-900">Credit Cards</h2>
-        <div className="mt-6 space-y-6">
+        <div className="mt-6 grid sm:grid-cols-2 gap-6">
           {creditCards.map((c) => (
             <CardRow key={c.name} card={c} />
           ))}

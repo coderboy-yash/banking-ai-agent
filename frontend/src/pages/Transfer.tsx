@@ -59,7 +59,7 @@ export default function Transfer() {
   return (
     <AppLayout title="Transfer">
       <div className="max-w-md">
-        <div className="rounded-xl border-2 border-slate-300 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border-2 border-maroon-500 bg-white p-6 shadow-sm">
           {success ? (
             <div className="text-center py-4">
               <CheckCircle2 className="size-10 text-emerald-600 mx-auto" strokeWidth={1.5} />

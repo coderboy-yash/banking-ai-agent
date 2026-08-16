@@ -29,7 +29,7 @@ export function AuthLayout({ title, subtitle, children }: { title: string; subti
               ))}
             </ul>
 
-            <div className="mt-12 w-64 rounded-2xl border-2 border-white/25 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
+            <div className="mt-12 w-64 rounded-2xl border-2 border-maroon-500 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
               <div className="flex items-center justify-between">
                 <div className="w-8 h-6 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
                 <Landmark className="size-5 text-white/80" strokeWidth={1.5} />

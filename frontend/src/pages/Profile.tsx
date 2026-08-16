@@ -19,7 +19,7 @@ export default function Profile() {
   return (
     <AppLayout title="Profile">
       <div className="max-w-md space-y-6">
-        <div className="rounded-xl border-2 border-slate-300 bg-white p-6 shadow-sm flex items-center gap-4">
+        <div className="rounded-xl border-2 border-maroon-500 bg-white p-6 shadow-sm flex items-center gap-4">
           <div className="size-14 rounded-full bg-maroon-700 text-white text-lg font-semibold flex items-center justify-center">
             {initials(user.name)}
           </div>
@@ -30,7 +30,7 @@ export default function Profile() {
           </div>
         </div>
 
-        <div className="rounded-xl border-2 border-slate-300 bg-white p-6 shadow-sm">
+        <div className="rounded-xl border-2 border-maroon-500 bg-white p-6 shadow-sm">
           <h2 className="text-base font-semibold text-slate-900 mb-4">Linked accounts</h2>
           <div className="divide-y divide-slate-100">
             {accounts.map((a) => (

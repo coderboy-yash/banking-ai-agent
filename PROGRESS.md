@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Unified red border theme, cards side by side
+- Did: unified every card border to a single theme maroon-500 red (was a mix of slate-gray and near-invisible white/25); rebuilt the Cards page so debit/credit cards sit side by side in a 2-column grid (visual on top, details below) instead of stacked full-width rows
+- Tech: no new deps
+- Issues: none — browser-verified, login regression passes, build clean
+
 ## 2026-08-16 — Borders were too subtle, fixed
 - Did: earlier border-white/10 pass was invisible on dark gradients (confirmed by screenshot) — bumped all card borders to border-2 with higher-contrast colors (slate-300 on white, white/25 on dark), and added a gold chip detail to all card-visual mockups (Cards page + balance-card graphics) for a more realistic, premium look closer to the IDFC FIRST reference
 - Tech: no new deps

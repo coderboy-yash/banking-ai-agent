@@ -46,7 +46,7 @@ export default function Transactions() {
         </select>
       </div>
 
-      <div className="rounded-xl border-2 border-slate-300 bg-white px-6 shadow-sm">
+      <div className="rounded-xl border-2 border-maroon-500 bg-white px-6 shadow-sm">
         {loading ? (
           <p className="py-6 text-sm text-slate-400">Loading transactions…</p>
         ) : transactions.length === 0 ? (
