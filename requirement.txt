@@ -1,0 +1,8 @@
+ i want to build an agentic ai project around fintech industry, what kind of agentic ai projects I can build around fintech , i want to use only langchain langgraph  and other components and some free tools and apis only , not a very high end project but it should solve some real case problem.
+
+ first we will build a basic banking website with frontend in react and backend in golang , that includes basic banking feature.
+ then we will include a chatbot init, that helps for customer service, and a helper for any customer , it acts like an agent, that helps new customer to interact and navigate with the website in the easiest way, 
+
+ it should allow user to find the policies , documents required , verifying the documents , create personal budgeting plan, find latest schemes that suits his budget, nearest branches.
+
+ loan approaval reuquirements, documents verification , and other and a chat assistance for normal queries,
