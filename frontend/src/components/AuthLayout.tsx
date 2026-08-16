@@ -29,8 +29,11 @@ export function AuthLayout({ title, subtitle, children }: { title: string; subti
               ))}
             </ul>
 
-            <div className="mt-12 w-64 rounded-2xl border border-white/10 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
-              <Landmark className="size-6 text-white/80" strokeWidth={1.5} />
+            <div className="mt-12 w-64 rounded-2xl border-2 border-white/25 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
+              <div className="flex items-center justify-between">
+                <div className="w-8 h-6 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
+                <Landmark className="size-5 text-white/80" strokeWidth={1.5} />
+              </div>
               <p className="mt-6 text-white/60 text-xs tracking-wide">CURRENT BALANCE</p>
               <p className="text-white text-2xl font-semibold tabular mt-1">$4,382.17</p>
               <p className="mt-6 text-white/50 text-xs tracking-widest">•••• •••• •••• 4821</p>

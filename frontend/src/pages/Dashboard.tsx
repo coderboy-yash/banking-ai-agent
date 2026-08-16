@@ -40,7 +40,7 @@ export default function Dashboard() {
             ))}
           </div>
 
-          <div className="mt-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="mt-8 rounded-xl border-2 border-slate-300 bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-base font-semibold text-slate-900">Recent Transactions</h2>
               <Link

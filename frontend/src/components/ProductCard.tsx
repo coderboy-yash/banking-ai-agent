@@ -15,7 +15,7 @@ export interface ProductCardData {
 
 export function ProductCard({ icon: Icon, title, tagline, rateLabel, rateValue, benefits, requirements, ctaLabel }: ProductCardData) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white overflow-hidden">
+    <div className="rounded-xl border-2 border-slate-300 bg-white overflow-hidden">
       <div className="p-6 border-b border-slate-100">
         <div className="flex items-start justify-between gap-4">
           <div>

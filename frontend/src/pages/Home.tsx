@@ -88,10 +88,13 @@ export default function Home() {
               <img
                 src={images.heroPayment}
                 alt="Customer paying with a card at checkout"
-                className="w-full h-80 object-cover rounded-2xl border border-white/10 shadow-2xl"
+                className="w-full h-80 object-cover rounded-2xl border-2 border-white/25 shadow-2xl"
               />
-              <div className="absolute -bottom-10 -left-6 w-56 rounded-2xl border border-white/10 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
-                <Landmark className="size-6 text-white/80" strokeWidth={1.5} />
+              <div className="absolute -bottom-10 -left-6 w-56 rounded-2xl border-2 border-white/25 bg-gradient-to-br from-maroon-700 to-maroon-950 p-5 shadow-2xl">
+                <div className="flex items-center justify-between">
+                  <div className="w-8 h-6 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
+                  <Landmark className="size-5 text-white/80" strokeWidth={1.5} />
+                </div>
                 <p className="mt-6 text-white/60 text-xs tracking-wide">CURRENT BALANCE</p>
                 <p className="text-white text-2xl font-semibold tabular mt-1">$4,382.17</p>
                 <p className="mt-6 text-white/50 text-xs tracking-widest">•••• •••• •••• 4821</p>
@@ -105,7 +108,7 @@ export default function Home() {
         <h2 className="text-2xl font-semibold text-slate-900">Accounts built for how you actually bank</h2>
         <div className="mt-8 grid md:grid-cols-3 gap-5">
           {products.map(({ icon: Icon, title, blurb, tone }) => (
-            <div key={title} className={`${tone} rounded-xl border border-white/10 p-6 text-white`}>
+            <div key={title} className={`${tone} rounded-xl border-2 border-white/25 p-6 text-white`}>
               <Icon className="size-7" strokeWidth={1.5} />
               <h3 className="mt-5 text-lg font-semibold">{title}</h3>
               <p className="mt-2 text-sm text-white/70 leading-relaxed">{blurb}</p>

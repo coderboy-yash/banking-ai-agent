@@ -76,9 +76,12 @@ const creditCards: CardOffer[] = [
 function CardRow({ card }: { card: CardOffer }) {
   const Icon = card.icon
   return (
-    <div className="grid md:grid-cols-[280px_1fr] gap-6 items-start rounded-xl border border-slate-200 p-6">
-      <div className={`rounded-2xl border border-white/10 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
-        <Icon className="size-7 text-white/80" strokeWidth={1.5} />
+    <div className="grid md:grid-cols-[280px_1fr] gap-6 items-start rounded-xl border-2 border-slate-300 p-6">
+      <div className={`rounded-2xl border-2 border-white/25 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
+        <div className="flex items-center justify-between">
+          <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
+          <Icon className="size-6 text-white/80" strokeWidth={1.5} />
+        </div>
         <div>
           <p className="text-white font-semibold">{card.name}</p>
           <p className="mt-3 text-white/50 text-xs tracking-widest">•••• •••• •••• 8842</p>
