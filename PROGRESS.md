@@ -95,6 +95,11 @@ Format:
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
 
+## 2026-08-16 — Policies link added to navbar
+- Did: Policies page was only reachable from the footer — added it to the top navbar next to Accounts/Cards/Loans
+- Tech: no new deps
+- Issues: none — browser-verified nav link, build clean
+
 ## 2026-08-16 — Policies & Documents page (official-looking bank docs)
 - Did: built a real `/policies` page — 6 documents (Terms & Conditions/Cardholder Agreement/Loan Agreement Terms + Required Documents, for each of Accounts/Cards/Loans), rendered with an actual official-document look: letterhead, doc number/effective date/version metadata block, numbered clauses, page footer with disclaimer, working Print button (window.print()). Original content written in formal banking-document style, not copied from any real bank. Linked from the footer's Legal column
 - Tech: new data/policies.ts (structured content, shared by index + detail pages), new PolicyDocumentView component, no new deps. Content isn't wired into the agent's RAG pipeline yet (Phase 3 still needs Chroma + find_policy tool) but is now in good shape to source from when that's built
