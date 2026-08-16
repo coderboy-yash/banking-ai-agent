@@ -1,6 +1,8 @@
 # Progress Log
 
 Short, dated entries. What we did, tech touched, issues. One-liners, no essays.
+Append new entries at the bottom, in the order they actually happened — do not insert
+out of sequence.
 
 Format:
 ```
@@ -22,34 +24,38 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
-## 2026-08-16 — Chatbot was answering off-topic questions, fixed
-- Did: assistant was happily answering math, general knowledge, current events, personal questions — not scoped to banking at all. Added an explicit SCOPE instruction to the system prompt: decline off-topic questions in one line and redirect to banking, don't answer them first
-- Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
-- Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
+## 2026-08-16 — Rebrand to Yash Bank + public homepage
+- Did: renamed Meridian Bank → Yash Bank everywhere; added a public marketing homepage at `/` (hero, product cards, features, footer) styled after real Indian bank sites (HDFC/IDFC FIRST reference screenshots); moved the banking app to `/dashboard`; recolored navy → maroon/black brand palette
+- Tech: same stack, no new deps; Playwright used to screenshot real bank sites for design reference (HDFC blocked by bot protection, IDFC FIRST worked)
+- Issues: none — verified full flow (home → login → dashboard) in browser, no console errors
 
-## 2026-08-16 — Phase 2: agent-service live (LangGraph + Groq chatbot)
-- Did: built the actual AI layer — FastAPI + LangGraph StateGraph, one chatbot node, SQLite checkpointer for per-session memory (survives restarts), system prompt grounded in the site's real account/card/loan facts with an explicit guardrail against inventing real balance/transaction data. Added a floating chat widget to the React frontend, wired globally (every page), session id persisted in localStorage
-- Tech: Python, FastAPI, LangGraph, langchain-groq (Llama 3.3 70B via Groq free tier), python-dotenv
-- Issues: user's Groq key initially landed in the tracked `.env.example` instead of gitignored `.env` — moved it before anything got committed
-- Status: verified live — real Groq replies, multi-turn memory confirmed (asked the assistant to recall a fact from 2 turns earlier, it did), guardrail confirmed (asked for "my balance", it correctly refused and pointed to /dashboard instead of inventing a number), no console/CORS errors, production build clean
+## 2026-08-16 — Backend built + wired to frontend
+- Did: full Go backend (signup/login/profile, accounts, transactions, transfer) verified via curl (happy path + error cases: duplicate email, wrong password, insufficient funds, missing auth) and via browser through the real UI; reset DB and reseeded the demo login (demo@yashbank.com) so it works in both mock and real-backend mode; frontend flipped to `VITE_USE_MOCK=false`
+- Tech: Go, Gin, GORM, Postgres 16 (Docker), golang-jwt, bcrypt
+- Issues: hit a disk-full crash mid-build yesterday (see prior entry) — resolved once free space came back; host already had native Postgres 18 on 5432, backend Postgres container uses 5433 instead
 
-## 2026-08-16 — Fixed auth-page redirect bug, expanded signup form
-- Did: (bug) Login/Signup didn't redirect away when already authenticated — user could land back on the signup form while logged in; now both redirect to /dashboard if a session exists. (feature) expanded signup to collect phone, DOB, PAN, annual income, employment type — sectioned "Personal details" / "Financial details" like the IDFC reference, explicit "demo only, nothing verified" disclaimer. This is plain data entry (no OTP/live-verification step), giving future agent features (budgeting, loan eligibility, document verification) real structured data to work with
-- Tech: extended User model + signup request/response on both frontend (types, mock store) and backend (Go struct + migration via AutoMigrate); backend restarted to pick up schema
-- Issues: none — verified real-backend signup (curl-confirmed fields persisted correctly) and mock-mode signup both work, login/signup redirect confirmed, build clean
+## 2026-08-16 — Auth pages redesigned
+- Did: login/signup were a bare floating card on empty gray with a tiny logo — felt like a generic template, not part of the site. Rebuilt as a branded split-screen page: site header/footer, dark benefits panel + balance-card visual on the left, form on the right
+- Tech: same stack, no new deps; browser + curl regression check confirmed login still works end to end
+- Issues: none
 
-## 2026-08-16 — Per-card detail/apply pages
-- Did: added a dedicated page per card (`/cards/:slug`) — soft gradient hero, 2x2 perk-tile grid, full card visual, benefits, trust-signal strip, final CTA. Styled after IDFC FIRST's actual apply-flow page (linked by user), but deliberately did NOT replicate its real Aadhaar/PAN/OTP data-collection form — that's live PII collection, which conflicts with this project's own "KYC is simulated" scope decision and risks reading as a phishing template. Borrowed only the safe visual language (gradient bg, bold headline, perk tiles); "Apply now" routes to our existing real /signup flow instead
-- Tech: extracted card data into `data/cards.ts` (shared by list + detail pages, added slug/headline/perks fields); Cards list tiles now link to detail pages instead of straight to signup
-- Issues: none — browser-verified navigation, invalid slug redirects to /cards, login regression passes, build clean
+## 2026-08-16 — Fixed: home page unreachable once logged in
+- Did: sidebar logo linked to /dashboard (redundant with the Dashboard nav item) so there was no in-app link back to the public home page; also the header/hero still showed Login/Open Account while already signed in. Sidebar logo now links to `/`, and the header + hero CTA are auth-aware (show "Go to Dashboard" when logged in)
+- Tech: no new deps
+- Issues: none — verified in browser (logo click reaches home, shows logged-in state)
 
-## 2026-08-16 — Photo-textured card faces on Cards page
-- Did: replaced the flat color gradients on the debit/credit card visuals with real photo textures (abstract wave, ink smoke, gold bars, earth at night) under a tinted brand-color overlay — same layering technique as the page banners. Picked images thematically: gold bars for Rewards, earth-at-night city lights for Travel
-- Tech: 4 new verified Unsplash URLs added to lib/images.ts, no new deps
-- Issues: none — browser-verified, login regression passes, build clean
+## 2026-08-16 — Accounts, Cards, Loans marketing pages
+- Did: built out the three inert header nav links into real pages — Accounts (Savings/Current/RD/FD with rates, benefits, requirements), Cards (Classic/Platinum debit, Rewards/Travel credit, with visual card mockups), Loans (Home/Car/Education with rates, benefits, requirements). Rates/terms are standard illustrative figures in normal banking style, not scraped from any real site
+- Tech: two new shared components (ProductCard, PageBanner), no new deps
+- Issues: none — browser-verified all three pages + nav links, no console errors
 
-## 2026-08-16 — Product cards: solid red background, white text
-- Did: white-card-with-red-border still read as flat/plain — converted Accounts/Loans (ProductCard) and the Cards page detail panels to solid maroon gradient backgrounds with white text, gold accents for rates/checkmarks, white CTA buttons. Scoped to the public marketing pages only — left the authenticated dashboard (Dashboard/Transactions/Transfer/Profile) as white panels since financial data readability matters more there and it wasn't part of the complaint
+## 2026-08-16 — Real images, borders on all cards, trimmed nav
+- Did: removed inert "The Bank" nav link; added borders to every card-like surface that was missing one (Home product cards, hero/auth balance-card visuals, card mockups on Cards page); added real photography (Unsplash, free/no API key, verified each URL resolves before using) — layered hero photo behind the balance card on Home, themed background photos on the Accounts/Cards/Loans banners, and a photo behind the auth-page dark panel
+- Tech: new `lib/images.ts` with verified Unsplash CDN URLs; no API key/build step needed. Note: images are hotlinked from Unsplash's CDN, so they require internet access to load — acceptable for a demo, would self-host for production
+- Issues: none — browser-verified all pages, login regression still passes, no console errors
+
+## 2026-08-16 — Borders were too subtle, fixed
+- Did: earlier border-white/10 pass was invisible on dark gradients (confirmed by screenshot) — bumped all card borders to border-2 with higher-contrast colors (slate-300 on white, white/25 on dark), and added a gold chip detail to all card-visual mockups (Cards page + balance-card graphics) for a more realistic, premium look closer to the IDFC FIRST reference
 - Tech: no new deps
 - Issues: none — browser-verified, login regression passes, build clean
 
@@ -58,37 +64,33 @@ Format:
 - Tech: no new deps
 - Issues: none — browser-verified, login regression passes, build clean
 
-## 2026-08-16 — Borders were too subtle, fixed
-- Did: earlier border-white/10 pass was invisible on dark gradients (confirmed by screenshot) — bumped all card borders to border-2 with higher-contrast colors (slate-300 on white, white/25 on dark), and added a gold chip detail to all card-visual mockups (Cards page + balance-card graphics) for a more realistic, premium look closer to the IDFC FIRST reference
+## 2026-08-16 — Product cards: solid red background, white text
+- Did: white-card-with-red-border still read as flat/plain — converted Accounts/Loans (ProductCard) and the Cards page detail panels to solid maroon gradient backgrounds with white text, gold accents for rates/checkmarks, white CTA buttons. Scoped to the public marketing pages only — left the authenticated dashboard (Dashboard/Transactions/Transfer/Profile) as white panels since financial data readability matters more there and it wasn't part of the complaint
 - Tech: no new deps
 - Issues: none — browser-verified, login regression passes, build clean
 
-## 2026-08-16 — Real images, borders on all cards, trimmed nav
-- Did: removed inert "The Bank" nav link; added borders to every card-like surface that was missing one (Home product cards, hero/auth balance-card visuals, card mockups on Cards page); added real photography (Unsplash, free/no API key, verified each URL resolves before using) — layered hero photo behind the balance card on Home, themed background photos on the Accounts/Cards/Loans banners, and a photo behind the auth-page dark panel
-- Tech: new `lib/images.ts` with verified Unsplash CDN URLs; no API key/build step needed. Note: images are hotlinked from Unsplash's CDN, so they require internet access to load — acceptable for a demo, would self-host for production
-- Issues: none — browser-verified all pages, login regression still passes, no console errors
+## 2026-08-16 — Photo-textured card faces on Cards page
+- Did: replaced the flat color gradients on the debit/credit card visuals with real photo textures (abstract wave, ink smoke, gold bars, earth at night) under a tinted brand-color overlay — same layering technique as the page banners. Picked images thematically: gold bars for Rewards, earth-at-night city lights for Travel
+- Tech: 4 new verified Unsplash URLs added to lib/images.ts, no new deps
+- Issues: none — browser-verified, login regression passes, build clean
 
-## 2026-08-16 — Accounts, Cards, Loans marketing pages
-- Did: built out the three inert header nav links into real pages — Accounts (Savings/Current/RD/FD with rates, benefits, requirements), Cards (Classic/Platinum debit, Rewards/Travel credit, with visual card mockups), Loans (Home/Car/Education with rates, benefits, requirements). Rates/terms are standard illustrative figures in normal banking style, not scraped from any real site
-- Tech: two new shared components (ProductCard, PageBanner), no new deps
-- Issues: none — browser-verified all three pages + nav links, no console errors
+## 2026-08-16 — Per-card detail/apply pages
+- Did: added a dedicated page per card (`/cards/:slug`) — soft gradient hero, 2x2 perk-tile grid, full card visual, benefits, trust-signal strip, final CTA. Styled after IDFC FIRST's actual apply-flow page (linked by user), but deliberately did NOT replicate its real Aadhaar/PAN/OTP data-collection form — that's live PII collection, which conflicts with this project's own "KYC is simulated" scope decision and risks reading as a phishing template. Borrowed only the safe visual language (gradient bg, bold headline, perk tiles); "Apply now" routes to our existing real /signup flow instead
+- Tech: extracted card data into `data/cards.ts` (shared by list + detail pages, added slug/headline/perks fields); Cards list tiles now link to detail pages instead of straight to signup
+- Issues: none — browser-verified navigation, invalid slug redirects to /cards, login regression passes, build clean
 
-## 2026-08-16 — Fixed: home page unreachable once logged in
-- Did: sidebar logo linked to /dashboard (redundant with the Dashboard nav item) so there was no in-app link back to the public home page; also the header/hero still showed Login/Open Account while already signed in. Sidebar logo now links to `/`, and the header + hero CTA are auth-aware (show "Go to Dashboard" when logged in)
-- Tech: no new deps
-- Issues: none — verified in browser (logo click reaches home, shows logged-in state)
+## 2026-08-16 — Fixed auth-page redirect bug, expanded signup form
+- Did: (bug) Login/Signup didn't redirect away when already authenticated — user could land back on the signup form while logged in; now both redirect to /dashboard if a session exists. (feature) expanded signup to collect phone, DOB, PAN, annual income, employment type — sectioned "Personal details" / "Financial details" like the IDFC reference, explicit "demo only, nothing verified" disclaimer. This is plain data entry (no OTP/live-verification step), giving future agent features (budgeting, loan eligibility, document verification) real structured data to work with
+- Tech: extended User model + signup request/response on both frontend (types, mock store) and backend (Go struct + migration via AutoMigrate); backend restarted to pick up schema
+- Issues: none — verified real-backend signup (curl-confirmed fields persisted correctly) and mock-mode signup both work, login/signup redirect confirmed, build clean
 
-## 2026-08-16 — Auth pages redesigned
-- Did: login/signup were a bare floating card on empty gray with a tiny logo — felt like a generic template, not part of the site. Rebuilt as a branded split-screen page: site header/footer, dark benefits panel + balance-card visual on the left, form on the right
-- Tech: same stack, no new deps; browser + curl regression check confirmed login still works end to end
-- Issues: none
+## 2026-08-16 — Phase 2: agent-service live (LangGraph + Groq chatbot)
+- Did: built the actual AI layer — FastAPI + LangGraph StateGraph, one chatbot node, SQLite checkpointer for per-session memory (survives restarts), system prompt grounded in the site's real account/card/loan facts with an explicit guardrail against inventing real balance/transaction data. Added a floating chat widget to the React frontend, wired globally (every page), session id persisted in localStorage
+- Tech: Python, FastAPI, LangGraph, langchain-groq (Llama 3.3 70B via Groq free tier), python-dotenv
+- Issues: user's Groq key initially landed in the tracked `.env.example` instead of gitignored `.env` — moved it before anything got committed
+- Status: verified live — real Groq replies, multi-turn memory confirmed (asked the assistant to recall a fact from 2 turns earlier, it did), guardrail confirmed (asked for "my balance", it correctly refused and pointed to /dashboard instead of inventing a number), no console/CORS errors, production build clean
 
-## 2026-08-16 — Backend built + wired to frontend
-- Did: full Go backend (signup/login/profile, accounts, transactions, transfer) verified via curl (happy path + error cases: duplicate email, wrong password, insufficient funds, missing auth) and via browser through the real UI; reset DB and reseeded the demo login (demo@yashbank.com) so it works in both mock and real-backend mode; frontend flipped to `VITE_USE_MOCK=false`
-- Tech: Go, Gin, GORM, Postgres 16 (Docker), golang-jwt, bcrypt
-- Issues: hit a disk-full crash mid-build yesterday (see prior entry) — resolved once free space came back; host already had native Postgres 18 on 5432, backend Postgres container uses 5433 instead
-
-## 2026-08-16 — Rebrand to Yash Bank + public homepage
-- Did: renamed Meridian Bank → Yash Bank everywhere; added a public marketing homepage at `/` (hero, product cards, features, footer) styled after real Indian bank sites (HDFC/IDFC FIRST reference screenshots); moved the banking app to `/dashboard`; recolored navy → maroon/black brand palette
-- Tech: same stack, no new deps; Playwright used to screenshot real bank sites for design reference (HDFC blocked by bot protection, IDFC FIRST worked)
-- Issues: none — verified full flow (home → login → dashboard) in browser, no console errors
+## 2026-08-16 — Chatbot was answering off-topic questions, fixed
+- Did: assistant was happily answering math, general knowledge, current events, personal questions — not scoped to banking at all. Added an explicit SCOPE instruction to the system prompt: decline off-topic questions in one line and redirect to banking, don't answer them first
+- Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
+- Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
