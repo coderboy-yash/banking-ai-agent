@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Accounts, Cards, Loans marketing pages
+- Did: built out the three inert header nav links into real pages — Accounts (Savings/Current/RD/FD with rates, benefits, requirements), Cards (Classic/Platinum debit, Rewards/Travel credit, with visual card mockups), Loans (Home/Car/Education with rates, benefits, requirements). Rates/terms are standard illustrative figures in normal banking style, not scraped from any real site
+- Tech: two new shared components (ProductCard, PageBanner), no new deps
+- Issues: none — browser-verified all three pages + nav links, no console errors
+
 ## 2026-08-16 — Fixed: home page unreachable once logged in
 - Did: sidebar logo linked to /dashboard (redundant with the Dashboard nav item) so there was no in-app link back to the public home page; also the header/hero still showed Login/Open Account while already signed in. Sidebar logo now links to `/`, and the header + hero CTA are auth-aware (show "Go to Dashboard" when logged in)
 - Tech: no new deps

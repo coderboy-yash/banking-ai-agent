@@ -2,7 +2,13 @@ import { Link } from 'react-router-dom'
 import { Landmark } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
-const navLinks = ['Personal', 'Accounts', 'Cards', 'Loans', 'The Bank']
+const navLinks = [
+  { label: 'Personal', to: null },
+  { label: 'Accounts', to: '/accounts' },
+  { label: 'Cards', to: '/cards' },
+  { label: 'Loans', to: '/loans' },
+  { label: 'The Bank', to: null },
+]
 
 export function PublicHeader() {
   const { user } = useAuth()
@@ -15,11 +21,21 @@ export function PublicHeader() {
           <span className="font-semibold text-lg tracking-tight">Yash Bank</span>
         </Link>
         <nav className="hidden md:flex items-center gap-7">
-          {navLinks.map((link) => (
-            <span key={link} className="text-sm text-white/70 hover:text-white cursor-default transition-colors">
-              {link}
-            </span>
-          ))}
+          {navLinks.map((link) =>
+            link.to ? (
+              <Link
+                key={link.label}
+                to={link.to}
+                className="text-sm text-white/70 hover:text-white transition-colors"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <span key={link.label} className="text-sm text-white/70 hover:text-white cursor-default transition-colors">
+                {link.label}
+              </span>
+            ),
+          )}
         </nav>
         <div className="flex items-center gap-3 shrink-0">
           {user ? (

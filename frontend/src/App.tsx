@@ -2,6 +2,9 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import Home from './pages/Home'
+import Accounts from './pages/Accounts'
+import Cards from './pages/Cards'
+import Loans from './pages/Loans'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
@@ -14,6 +17,9 @@ export default function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/accounts" element={<Accounts />} />
+        <Route path="/cards" element={<Cards />} />
+        <Route path="/loans" element={<Loans />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route
