@@ -17,7 +17,7 @@ export function AppLayout({ title, children }: { title: string; children: ReactN
   return (
     <div className="min-h-screen bg-slate-50 flex">
       <aside className="w-64 shrink-0 bg-maroon-950 text-maroon-100 flex flex-col">
-        <Link to="/dashboard" className="flex items-center gap-2 px-6 py-6">
+        <Link to="/" className="flex items-center gap-2 px-6 py-6">
           <Landmark className="size-6 text-white" strokeWidth={1.75} />
           <span className="text-white font-semibold text-lg tracking-tight">Yash Bank</span>
         </Link>

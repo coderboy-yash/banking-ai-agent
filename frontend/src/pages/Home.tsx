@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { PublicHeader } from '../components/PublicHeader'
 import { PublicFooter } from '../components/PublicFooter'
+import { useAuth } from '../context/AuthContext'
 
 const products = [
   {
@@ -41,6 +42,8 @@ const features = [
 ]
 
 export default function Home() {
+  const { user } = useAuth()
+
   return (
     <div className="min-h-screen bg-white">
       <PublicHeader />
@@ -56,15 +59,26 @@ export default function Home() {
               all from one place.
             </p>
             <div className="mt-8 flex items-center gap-4">
-              <Link
-                to="/signup"
-                className="inline-flex items-center rounded-full bg-maroon-700 px-6 py-3 text-sm font-semibold hover:bg-maroon-600 transition-colors"
-              >
-                Open Account
-              </Link>
-              <Link to="/login" className="text-sm font-semibold text-white underline underline-offset-4">
-                Log in to your account
-              </Link>
+              {user ? (
+                <Link
+                  to="/dashboard"
+                  className="inline-flex items-center rounded-full bg-maroon-700 px-6 py-3 text-sm font-semibold hover:bg-maroon-600 transition-colors"
+                >
+                  Go to Dashboard
+                </Link>
+              ) : (
+                <>
+                  <Link
+                    to="/signup"
+                    className="inline-flex items-center rounded-full bg-maroon-700 px-6 py-3 text-sm font-semibold hover:bg-maroon-600 transition-colors"
+                  >
+                    Open Account
+                  </Link>
+                  <Link to="/login" className="text-sm font-semibold text-white underline underline-offset-4">
+                    Log in to your account
+                  </Link>
+                </>
+              )}
             </div>
           </div>
 

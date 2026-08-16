@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Landmark } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
 
 const navLinks = ['Personal', 'Accounts', 'Cards', 'Loans', 'The Bank']
 
 export function PublicHeader() {
+  const { user } = useAuth()
+
   return (
     <header className="bg-black text-white">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
@@ -19,18 +22,29 @@ export function PublicHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3 shrink-0">
-          <Link
-            to="/signup"
-            className="hidden sm:inline-flex items-center rounded-full bg-maroon-700 px-4 py-2 text-sm font-semibold hover:bg-maroon-600 transition-colors"
-          >
-            Open Account
-          </Link>
-          <Link
-            to="/login"
-            className="inline-flex items-center rounded-full border border-white/30 px-4 py-2 text-sm font-semibold hover:bg-white/10 transition-colors"
-          >
-            Login
-          </Link>
+          {user ? (
+            <Link
+              to="/dashboard"
+              className="inline-flex items-center rounded-full bg-maroon-700 px-4 py-2 text-sm font-semibold hover:bg-maroon-600 transition-colors"
+            >
+              Go to Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/signup"
+                className="hidden sm:inline-flex items-center rounded-full bg-maroon-700 px-4 py-2 text-sm font-semibold hover:bg-maroon-600 transition-colors"
+              >
+                Open Account
+              </Link>
+              <Link
+                to="/login"
+                className="inline-flex items-center rounded-full border border-white/30 px-4 py-2 text-sm font-semibold hover:bg-white/10 transition-colors"
+              >
+                Login
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>
