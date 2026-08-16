@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"fmt"
 	"net/http"
+	"strings"
 	"time"
 
 	"banking-ai-agent/backend/internal/models"
@@ -15,10 +16,15 @@ import (
 )
 
 type userResponse struct {
-	ID          string `json:"id"`
-	Name        string `json:"name"`
-	Email       string `json:"email"`
-	MemberSince string `json:"memberSince"`
+	ID             string  `json:"id"`
+	Name           string  `json:"name"`
+	Email          string  `json:"email"`
+	Phone          string  `json:"phone"`
+	DateOfBirth    string  `json:"dateOfBirth"`
+	PANNumber      string  `json:"panNumber"`
+	AnnualIncome   float64 `json:"annualIncome"`
+	EmploymentType string  `json:"employmentType"`
+	MemberSince    string  `json:"memberSince"`
 }
 
 type authResponse struct {
@@ -27,7 +33,17 @@ type authResponse struct {
 }
 
 func toUserResponse(u models.User) userResponse {
-	return userResponse{ID: u.ID, Name: u.Name, Email: u.Email, MemberSince: u.MemberSince.Format("2006-01-02")}
+	return userResponse{
+		ID:             u.ID,
+		Name:           u.Name,
+		Email:          u.Email,
+		Phone:          u.Phone,
+		DateOfBirth:    u.DateOfBirth.Format("2006-01-02"),
+		PANNumber:      u.PANNumber,
+		AnnualIncome:   u.AnnualIncome,
+		EmploymentType: u.EmploymentType,
+		MemberSince:    u.MemberSince.Format("2006-01-02"),
+	}
 }
 
 func randomAccountNumber() string {
@@ -39,9 +55,14 @@ func randomAccountNumber() string {
 func Signup(database *gorm.DB, secret string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req struct {
-			Name     string `json:"name" binding:"required"`
-			Email    string `json:"email" binding:"required,email"`
-			Password string `json:"password" binding:"required,min=6"`
+			Name           string  `json:"name" binding:"required"`
+			Email          string  `json:"email" binding:"required,email"`
+			Password       string  `json:"password" binding:"required,min=6"`
+			Phone          string  `json:"phone"`
+			DateOfBirth    string  `json:"dateOfBirth"`
+			PANNumber      string  `json:"panNumber"`
+			AnnualIncome   float64 `json:"annualIncome"`
+			EmploymentType string  `json:"employmentType"`
 		}
 		if err := c.ShouldBindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -60,12 +81,19 @@ func Signup(database *gorm.DB, secret string) gin.HandlerFunc {
 			return
 		}
 
+		dob, _ := time.Parse("2006-01-02", req.DateOfBirth)
+
 		user := models.User{
-			ID:           util.NewID(),
-			Name:         req.Name,
-			Email:        req.Email,
-			PasswordHash: string(hash),
-			MemberSince:  time.Now(),
+			ID:             util.NewID(),
+			Name:           req.Name,
+			Email:          req.Email,
+			PasswordHash:   string(hash),
+			Phone:          req.Phone,
+			DateOfBirth:    dob,
+			PANNumber:      strings.ToUpper(req.PANNumber),
+			AnnualIncome:   req.AnnualIncome,
+			EmploymentType: req.EmploymentType,
+			MemberSince:    time.Now(),
 		}
 		account := models.Account{
 			ID:            util.NewID(),

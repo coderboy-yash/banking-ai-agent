@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
-import type { User } from '../types'
+import type { SignupInput, User } from '../types'
 import * as authApi from '../api/auth'
 
 interface AuthContextValue {
   user: User | null
   loading: boolean
   login: (email: string, password: string) => Promise<void>
-  signup: (name: string, email: string, password: string) => Promise<void>
+  signup: (input: SignupInput) => Promise<void>
   logout: () => void
 }
 
@@ -33,8 +33,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     persist(result.token, result.user)
   }
 
-  async function signup(name: string, email: string, password: string) {
-    const result = await authApi.signup(name, email, password)
+  async function signup(input: SignupInput) {
+    const result = await authApi.signup(input)
     persist(result.token, result.user)
   }
 

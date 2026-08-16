@@ -3,11 +3,16 @@ package models
 import "time"
 
 type User struct {
-	ID           string `gorm:"primaryKey"`
-	Name         string
-	Email        string `gorm:"uniqueIndex"`
-	PasswordHash string
-	MemberSince  time.Time
+	ID             string `gorm:"primaryKey"`
+	Name           string
+	Email          string `gorm:"uniqueIndex"`
+	PasswordHash   string
+	Phone          string
+	DateOfBirth    time.Time
+	PANNumber      string
+	AnnualIncome   float64
+	EmploymentType string
+	MemberSince    time.Time
 }
 
 type Account struct {

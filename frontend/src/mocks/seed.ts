@@ -7,6 +7,11 @@ export const seedUser: User = {
   id: 'u1',
   name: 'Jordan Lee',
   email: DEMO_EMAIL,
+  phone: '9876543210',
+  dateOfBirth: '1994-06-12',
+  panNumber: 'ABCDE1234F',
+  annualIncome: 1200000,
+  employmentType: 'salaried',
   memberSince: '2022-03-01',
 }
 

@@ -1,4 +1,4 @@
-import type { AuthResult } from '../types'
+import type { AuthResult, SignupInput } from '../types'
 import { apiClient, mockDelay, USE_MOCK } from './client'
 import { mockDB } from '../mocks/store'
 
@@ -19,17 +19,27 @@ export async function login(email: string, password: string): Promise<AuthResult
   return res.data
 }
 
-export async function signup(name: string, email: string, password: string): Promise<AuthResult> {
+export async function signup(input: SignupInput): Promise<AuthResult> {
   if (USE_MOCK) {
     await mockDelay()
     const db = mockDB.get()
-    if (db.credentials.some((c) => c.email === email)) {
+    if (db.credentials.some((c) => c.email === input.email)) {
       throw new Error('An account with that email already exists')
     }
     const userId = `u${db.users.length + 1}`
-    const user = { id: userId, name, email, memberSince: new Date().toISOString().slice(0, 10) }
+    const user = {
+      id: userId,
+      name: input.name,
+      email: input.email,
+      phone: input.phone,
+      dateOfBirth: input.dateOfBirth,
+      panNumber: input.panNumber,
+      annualIncome: input.annualIncome,
+      employmentType: input.employmentType,
+      memberSince: new Date().toISOString().slice(0, 10),
+    }
     db.users.push(user)
-    db.credentials.push({ userId, email, password })
+    db.credentials.push({ userId, email: input.email, password: input.password })
     db.accounts.push({
       id: `a${db.accounts.length + 1}`,
       ownerId: userId,
@@ -41,6 +51,6 @@ export async function signup(name: string, email: string, password: string): Pro
     mockDB.set(db)
     return { token: makeMockToken(userId), user }
   }
-  const res = await apiClient.post<AuthResult>('/signup', { name, email, password })
+  const res = await apiClient.post<AuthResult>('/signup', input)
   return res.data
 }

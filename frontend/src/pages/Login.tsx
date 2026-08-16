@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { AuthLayout } from '../components/AuthLayout'
 import { DEMO_EMAIL, DEMO_PASSWORD } from '../mocks/seed'
@@ -8,12 +8,14 @@ const inputClass =
   'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent'
 
 export default function Login() {
-  const { login } = useAuth()
+  const { user, login } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+
+  if (user) return <Navigate to="/dashboard" replace />
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()

@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Fixed auth-page redirect bug, expanded signup form
+- Did: (bug) Login/Signup didn't redirect away when already authenticated — user could land back on the signup form while logged in; now both redirect to /dashboard if a session exists. (feature) expanded signup to collect phone, DOB, PAN, annual income, employment type — sectioned "Personal details" / "Financial details" like the IDFC reference, explicit "demo only, nothing verified" disclaimer. This is plain data entry (no OTP/live-verification step), giving future agent features (budgeting, loan eligibility, document verification) real structured data to work with
+- Tech: extended User model + signup request/response on both frontend (types, mock store) and backend (Go struct + migration via AutoMigrate); backend restarted to pick up schema
+- Issues: none — verified real-backend signup (curl-confirmed fields persisted correctly) and mock-mode signup both work, login/signup redirect confirmed, build clean
+
 ## 2026-08-16 — Per-card detail/apply pages
 - Did: added a dedicated page per card (`/cards/:slug`) — soft gradient hero, 2x2 perk-tile grid, full card visual, benefits, trust-signal strip, final CTA. Styled after IDFC FIRST's actual apply-flow page (linked by user), but deliberately did NOT replicate its real Aadhaar/PAN/OTP data-collection form — that's live PII collection, which conflicts with this project's own "KYC is simulated" scope decision and risks reading as a phishing template. Borrowed only the safe visual language (gradient bg, bold headline, perk tiles); "Apply now" routes to our existing real /signup flow instead
 - Tech: extracted card data into `data/cards.ts` (shared by list + detail pages, added slug/headline/perks fields); Cards list tiles now link to detail pages instead of straight to signup

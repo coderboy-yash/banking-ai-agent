@@ -1,8 +1,26 @@
+export type EmploymentType = 'salaried' | 'self-employed' | 'student' | 'other'
+
 export interface User {
   id: string
   name: string
   email: string
+  phone: string
+  dateOfBirth: string
+  panNumber: string
+  annualIncome: number
+  employmentType: EmploymentType
   memberSince: string
+}
+
+export interface SignupInput {
+  name: string
+  email: string
+  password: string
+  phone: string
+  dateOfBirth: string
+  panNumber: string
+  annualIncome: number
+  employmentType: EmploymentType
 }
 
 export type AccountType = 'checking' | 'savings'
