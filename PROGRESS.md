@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Real images, borders on all cards, trimmed nav
+- Did: removed inert "The Bank" nav link; added borders to every card-like surface that was missing one (Home product cards, hero/auth balance-card visuals, card mockups on Cards page); added real photography (Unsplash, free/no API key, verified each URL resolves before using) — layered hero photo behind the balance card on Home, themed background photos on the Accounts/Cards/Loans banners, and a photo behind the auth-page dark panel
+- Tech: new `lib/images.ts` with verified Unsplash CDN URLs; no API key/build step needed. Note: images are hotlinked from Unsplash's CDN, so they require internet access to load — acceptable for a demo, would self-host for production
+- Issues: none — browser-verified all pages, login regression still passes, no console errors
+
 ## 2026-08-16 — Accounts, Cards, Loans marketing pages
 - Did: built out the three inert header nav links into real pages — Accounts (Savings/Current/RD/FD with rates, benefits, requirements), Cards (Classic/Platinum debit, Rewards/Travel credit, with visual card mockups), Loans (Home/Car/Education with rates, benefits, requirements). Rates/terms are standard illustrative figures in normal banking style, not scraped from any real site
 - Tech: two new shared components (ProductCard, PageBanner), no new deps

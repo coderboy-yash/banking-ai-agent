@@ -3,6 +3,7 @@ import { PublicHeader } from '../components/PublicHeader'
 import { PublicFooter } from '../components/PublicFooter'
 import { PageBanner } from '../components/PageBanner'
 import { ProductCard, type ProductCardData } from '../components/ProductCard'
+import { images } from '../lib/images'
 
 const accounts: ProductCardData[] = [
   {
@@ -88,6 +89,7 @@ export default function Accounts() {
       <PageBanner
         title="Accounts built for how you actually bank"
         subtitle="Whether you're saving for the everyday or planning years ahead, there's a Yash Bank account for it."
+        image={images.coinsGrowth}
       />
       <section className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-6">
         {accounts.map((a) => (

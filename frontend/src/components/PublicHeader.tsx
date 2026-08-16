@@ -7,7 +7,6 @@ const navLinks = [
   { label: 'Accounts', to: '/accounts' },
   { label: 'Cards', to: '/cards' },
   { label: 'Loans', to: '/loans' },
-  { label: 'The Bank', to: null },
 ]
 
 export function PublicHeader() {

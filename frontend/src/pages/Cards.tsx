@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { PublicHeader } from '../components/PublicHeader'
 import { PublicFooter } from '../components/PublicFooter'
 import { PageBanner } from '../components/PageBanner'
+import { images } from '../lib/images'
 
 interface CardOffer {
   icon: LucideIcon
@@ -76,7 +77,7 @@ function CardRow({ card }: { card: CardOffer }) {
   const Icon = card.icon
   return (
     <div className="grid md:grid-cols-[280px_1fr] gap-6 items-start rounded-xl border border-slate-200 p-6">
-      <div className={`rounded-2xl bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
+      <div className={`rounded-2xl border border-white/10 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
         <Icon className="size-7 text-white/80" strokeWidth={1.5} />
         <div>
           <p className="text-white font-semibold">{card.name}</p>
@@ -116,6 +117,7 @@ export default function Cards() {
       <PageBanner
         title="Cards for however you pay"
         subtitle="From everyday debit to travel-ready credit, choose the card that fits how you spend."
+        image={images.atmKeypad}
       />
 
       <section className="max-w-7xl mx-auto px-6 py-16">

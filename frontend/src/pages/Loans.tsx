@@ -2,6 +2,7 @@ import { Car, GraduationCap, Home as HomeIcon } from 'lucide-react'
 import { PublicHeader } from '../components/PublicHeader'
 import { PublicFooter } from '../components/PublicFooter'
 import { PageBanner } from '../components/PageBanner'
+import { images } from '../lib/images'
 import { ProductCard, type ProductCardData } from '../components/ProductCard'
 
 const loans: ProductCardData[] = [
@@ -74,6 +75,7 @@ export default function Loans() {
       <PageBanner
         title="Loans for whatever comes next"
         subtitle="Competitive rates and flexible terms for the milestones that matter — a home, a car, an education."
+        image={images.signingDocs}
       />
       <section className="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-6">
         {loans.map((l) => (
