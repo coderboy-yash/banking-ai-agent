@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext'
 import { AppLayout } from '../components/AppLayout'
 import { getAccounts } from '../api/accounts'
 import { formatCurrency, formatDate, initials, maskAccountNumber } from '../lib/format'
+import { accountTypeMeta } from '../lib/accountTypes'
 import type { Account } from '../types'
 
 export default function Profile() {
@@ -36,9 +37,7 @@ export default function Profile() {
             {accounts.map((a) => (
               <div key={a.id} className="flex items-center justify-between py-3">
                 <div>
-                  <p className="text-sm font-medium text-slate-900">
-                    {a.type === 'checking' ? 'Checking' : 'Savings'}
-                  </p>
+                  <p className="text-sm font-medium text-slate-900">{accountTypeMeta[a.type].label}</p>
                   <p className="text-xs text-slate-500">{maskAccountNumber(a.accountNumber)}</p>
                 </div>
                 <span className="text-sm font-semibold text-slate-900 tabular">

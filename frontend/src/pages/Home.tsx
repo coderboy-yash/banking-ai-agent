@@ -96,7 +96,7 @@ export default function Home() {
                   <Landmark className="size-5 text-white/80" strokeWidth={1.5} />
                 </div>
                 <p className="mt-6 text-white/60 text-xs tracking-wide">CURRENT BALANCE</p>
-                <p className="text-white text-2xl font-semibold tabular mt-1">$4,382.17</p>
+                <p className="text-white text-2xl font-semibold tabular mt-1">₹8,50,000</p>
                 <p className="mt-6 text-white/50 text-xs tracking-widest">•••• •••• •••• 4821</p>
               </div>
             </div>

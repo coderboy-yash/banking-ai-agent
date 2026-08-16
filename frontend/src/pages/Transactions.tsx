@@ -5,6 +5,7 @@ import { TransactionRow } from '../components/TransactionRow'
 import { getAccounts } from '../api/accounts'
 import { getTransactions } from '../api/transactions'
 import { maskAccountNumber } from '../lib/format'
+import { accountTypeMeta } from '../lib/accountTypes'
 import type { Account, Transaction } from '../types'
 
 export default function Transactions() {
@@ -40,7 +41,7 @@ export default function Transactions() {
           <option value="all">All accounts</option>
           {accounts.map((a) => (
             <option key={a.id} value={a.id}>
-              {a.type === 'checking' ? 'Checking' : 'Savings'} {maskAccountNumber(a.accountNumber)}
+              {accountTypeMeta[a.type].label} {maskAccountNumber(a.accountNumber)}
             </option>
           ))}
         </select>

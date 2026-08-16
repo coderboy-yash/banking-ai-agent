@@ -95,6 +95,11 @@ Format:
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
 
+## 2026-08-17 — Dashboard was too blank: 4 account types, ₹1 crore, 56 transactions, INR everywhere
+- Did: dashboard only had 2 near-empty accounts and ~20 transactions. Added RD and FD as real account types (new shared accountTypeMeta helper, dedupes label/icon logic that was copy-pasted across AccountCard/Transfer/Transactions/Profile), gave the demo user 4 accounts summing to exactly ₹1,00,00,000 (Checking ₹8.5L, Savings ₹22L, RD ₹15L, FD ₹54.5L), and wrote 56 realistic transactions (salary credits, rent, Swiggy/Zomato/BigBasket/Amazon.in-style spends, utility bills, interest credits, RD/FD transfers) across ~90 days. Also fixed a real inconsistency: the banking app displayed balances in USD/$ while the rest of the site is themed in Indian Rupees — switched formatCurrency to INR/en-IN (correct lakh/crore grouping) everywhere, including the Go backend's default signup currency
+- Tech: applied to both the frontend mock data (mocks/seed.ts, used when VITE_USE_MOCK=true) AND the real Postgres demo user (VITE_USE_MOCK=false is what's actually running) — enriched the live database directly via a generated SQL script (3 new accounts + 56 transactions, wrapped in one transaction) since there's no API for backdating historical data
+- Issues: none — verified account totals sum to exactly ₹1,00,00,000 and transaction count is 56 via direct DB query, browser-verified dashboard/transactions/transfer/profile all render correctly with proper Indian currency formatting, no console errors, build clean. Rationale: richer, more realistic account data gives future agent features (budgeting, loan eligibility) real signal to reason over instead of a near-empty demo account
+
 ## 2026-08-16 — Policies link added to navbar
 - Did: Policies page was only reachable from the footer — added it to the top navbar next to Accounts/Cards/Loans
 - Tech: no new deps

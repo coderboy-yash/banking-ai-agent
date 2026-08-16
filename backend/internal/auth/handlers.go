@@ -100,8 +100,8 @@ func Signup(database *gorm.DB, secret string) gin.HandlerFunc {
 			OwnerID:       user.ID,
 			Type:          "checking",
 			AccountNumber: randomAccountNumber(),
-			Balance:       500,
-			Currency:      "USD",
+			Balance:       5000,
+			Currency:      "INR",
 		}
 
 		err = database.Transaction(func(tx *gorm.DB) error {

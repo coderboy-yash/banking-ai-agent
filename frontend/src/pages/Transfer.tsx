@@ -5,6 +5,7 @@ import { AppLayout } from '../components/AppLayout'
 import { getAccounts } from '../api/accounts'
 import { transfer } from '../api/transactions'
 import { formatCurrency, maskAccountNumber } from '../lib/format'
+import { accountTypeMeta } from '../lib/accountTypes'
 import type { Account } from '../types'
 
 const inputClass =
@@ -85,8 +86,8 @@ export default function Transfer() {
                 >
                   {accounts.map((a) => (
                     <option key={a.id} value={a.id}>
-                      {a.type === 'checking' ? 'Checking' : 'Savings'} {maskAccountNumber(a.accountNumber)} —{' '}
-                      {formatCurrency(a.balance)}
+                      {accountTypeMeta[a.type].label} {maskAccountNumber(a.accountNumber)} —{' '}
+                      {formatCurrency(a.balance, a.currency)}
                     </option>
                   ))}
                 </select>

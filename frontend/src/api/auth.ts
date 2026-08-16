@@ -46,7 +46,7 @@ export async function signup(input: SignupInput): Promise<AuthResult> {
       type: 'checking',
       accountNumber: String(Math.floor(1000 + Math.random() * 8999)),
       balance: 500,
-      currency: 'USD',
+      currency: 'INR',
     })
     mockDB.set(db)
     return { token: makeMockToken(userId), user }

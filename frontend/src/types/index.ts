@@ -23,7 +23,7 @@ export interface SignupInput {
   employmentType: EmploymentType
 }
 
-export type AccountType = 'checking' | 'savings'
+export type AccountType = 'checking' | 'savings' | 'rd' | 'fd'
 
 export interface Account {
   id: string

@@ -7,6 +7,7 @@ import { AccountCard } from '../components/AccountCard'
 import { TransactionRow } from '../components/TransactionRow'
 import { getAccounts } from '../api/accounts'
 import { getTransactions } from '../api/transactions'
+import { formatCurrency } from '../lib/format'
 import type { Account, Transaction } from '../types'
 
 export default function Dashboard() {
@@ -34,7 +35,14 @@ export default function Dashboard() {
         <p className="text-sm text-slate-400">Loading accounts…</p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="rounded-xl border-2 border-maroon-400 bg-gradient-to-br from-maroon-800 to-maroon-950 p-6 text-white mb-5">
+            <p className="text-sm text-white/70">Total balance across all accounts</p>
+            <p className="mt-1 text-3xl font-semibold tabular">
+              {formatCurrency(accounts.reduce((sum, a) => sum + a.balance, 0))}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {accounts.map((account) => (
               <AccountCard key={account.id} account={account} />
             ))}
