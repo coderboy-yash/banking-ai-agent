@@ -54,7 +54,7 @@ These are scope decisions, not gaps to "fix":
 
 Populated as each service is scaffolded (see PROJECT_PLAN.md Phase 1+).
 
-- `backend/`: TBD (Go run command, DB setup)
+- `backend/`: `docker compose up -d` (Postgres on host port 5433, see docker-compose.yml — 5432 was taken by an existing native install), `cp .env.example .env`, `go run ./cmd/server`
 - `frontend/`: `cp .env.example .env && npm install && npm run dev` (mock data by default, `VITE_USE_MOCK=false` once backend exists)
 - `agent-service/`: TBD (`uvicorn` entrypoint)
 
