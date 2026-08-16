@@ -7,6 +7,8 @@ import Accounts from './pages/Accounts'
 import Cards from './pages/Cards'
 import CardDetail from './pages/CardDetail'
 import Loans from './pages/Loans'
+import Policies from './pages/Policies'
+import PolicyDocument from './pages/PolicyDocument'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Dashboard from './pages/Dashboard'
@@ -23,6 +25,8 @@ export default function App() {
         <Route path="/cards" element={<Cards />} />
         <Route path="/cards/:slug" element={<CardDetail />} />
         <Route path="/loans" element={<Loans />} />
+        <Route path="/policies" element={<Policies />} />
+        <Route path="/policies/:slug" element={<PolicyDocument />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route

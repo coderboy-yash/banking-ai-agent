@@ -1,10 +1,19 @@
 import { Landmark } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 const columns = [
-  { heading: 'About Yash Bank', links: ['Careers', 'Investor Relations', 'Corporate Governance', 'Press'] },
-  { heading: 'Products', links: ['Savings Account', 'Checking Account', 'Fixed Deposits', 'Personal Loans'] },
-  { heading: 'Support', links: ['Customer Care', 'Locate a Branch', 'Report Fraud', 'FAQs'] },
-  { heading: 'Legal', links: ['Privacy Policy', 'Terms of Service', 'Security', 'Accessibility'] },
+  { heading: 'About Yash Bank', links: [{ label: 'Careers' }, { label: 'Investor Relations' }, { label: 'Corporate Governance' }, { label: 'Press' }] },
+  { heading: 'Products', links: [{ label: 'Savings Account' }, { label: 'Checking Account' }, { label: 'Fixed Deposits' }, { label: 'Personal Loans' }] },
+  { heading: 'Support', links: [{ label: 'Customer Care' }, { label: 'Locate a Branch' }, { label: 'Report Fraud' }, { label: 'FAQs' }] },
+  {
+    heading: 'Legal',
+    links: [
+      { label: 'Policies & Documents', to: '/policies' },
+      { label: 'Terms of Service', to: '/policies' },
+      { label: 'Security' },
+      { label: 'Accessibility' },
+    ],
+  },
 ]
 
 export function PublicFooter() {
@@ -25,11 +34,19 @@ export function PublicFooter() {
             <div key={col.heading}>
               <h3 className="text-sm font-semibold text-white mb-3">{col.heading}</h3>
               <ul className="space-y-2">
-                {col.links.map((link) => (
-                  <li key={link} className="text-sm text-maroon-100/60">
-                    {link}
-                  </li>
-                ))}
+                {col.links.map((link) =>
+                  link.to ? (
+                    <li key={link.label}>
+                      <Link to={link.to} className="text-sm text-maroon-100/60 hover:text-white transition-colors">
+                        {link.label}
+                      </Link>
+                    </li>
+                  ) : (
+                    <li key={link.label} className="text-sm text-maroon-100/60">
+                      {link.label}
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
           ))}

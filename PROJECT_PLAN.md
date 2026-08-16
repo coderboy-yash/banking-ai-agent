@@ -33,8 +33,11 @@ locally).
 **Feasibility:** yes.
 
 ## Phase 3 — Navigation, policies & branch finder
-- [ ] Policy docs written (markdown) + Chroma RAG index (local sentence-transformers
-      embeddings)
+- [~] Policy docs written — done as a real frontend page (`/policies`, official-document
+      styling) with structured content in `frontend/src/data/policies.ts` for
+      Accounts/Cards/Loans (terms + required-documents). Not yet: converted to markdown
+      and indexed in Chroma for RAG — that's still open
+- [ ] Chroma RAG index (local sentence-transformers embeddings)
 - [ ] Tools: `find_policy`, `list_required_documents`, `find_nearest_branch`
 - [ ] Static branch dataset + OSM Nominatim geocoding + distance calc
 - [ ] LangGraph router node for intent classification → tool dispatch
