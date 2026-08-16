@@ -39,7 +39,7 @@ function getSessionId() {
 const GREETING: ChatMessage = {
   id: 'greeting',
   role: 'assistant',
-  text: "Hi! I'm the Yash Bank Assistant. Here's what I can help with:",
+  text: "Hi! I'm the Yash Bank Assistant. Ask me anything, or pick a topic below.",
 }
 
 const QUICK_ACTIONS: QuickAction[] = [
@@ -136,27 +136,25 @@ export function ChatWidget() {
               </div>
             ))}
 
-            {messages.length === 1 && (
-              <div className="flex flex-col items-start gap-2">
-                {QUICK_ACTIONS.map(({ icon: Icon, label, message }) => (
-                  <button
-                    key={label}
-                    onClick={() => sendText(message)}
-                    disabled={sending}
-                    className="flex items-center gap-2 rounded-full border border-maroon-300 bg-white px-3.5 py-2 text-sm text-maroon-800 hover:bg-maroon-50 disabled:opacity-50 transition-colors"
-                  >
-                    <Icon className="size-4" strokeWidth={1.75} />
-                    {label}
-                  </button>
-                ))}
-              </div>
-            )}
-
             {sending && (
               <div className="flex justify-start">
                 <div className="rounded-xl bg-slate-100 px-3.5 py-2 text-sm text-slate-400">Typing…</div>
               </div>
             )}
+          </div>
+
+          <div className={`flex items-center gap-2 overflow-x-auto border-t border-slate-200 px-3 py-2.5 ${expanded ? 'max-w-3xl mx-auto w-full' : ''}`}>
+            {QUICK_ACTIONS.map(({ icon: Icon, label, message }) => (
+              <button
+                key={label}
+                onClick={() => sendText(message)}
+                disabled={sending}
+                className="flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-maroon-300 bg-white px-3 py-1.5 text-xs font-medium text-maroon-800 hover:bg-maroon-50 disabled:opacity-50 transition-colors"
+              >
+                <Icon className="size-3.5" strokeWidth={1.75} />
+                {label}
+              </button>
+            ))}
           </div>
 
           <form

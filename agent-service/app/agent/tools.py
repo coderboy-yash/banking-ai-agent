@@ -31,10 +31,18 @@ def _new_ticket_id() -> str:
 
 @tool
 def raise_support_ticket(subject: str, description: str) -> str:
-    """Raise a customer support ticket for the user. Use this when the user reports a
-    problem, complaint, or issue they want followed up on (e.g. a card not working, a
-    disputed transaction, trouble accessing their account). If they haven't given a
-    clear subject and description yet, ask for them before calling this tool."""
+    """Raise a customer support ticket for the user. Only call this once you have
+    already asked the user what the problem is and they have replied with real
+    details — do NOT call this the moment someone says they want to raise a ticket.
+    If the user has only expressed intent ("I want to raise a ticket", "I have a
+    complaint") without saying what's actually wrong, your next reply must be a
+    question asking what happened — do not call this tool on that turn. Only call it
+    once subject and description describe an actual, specific issue."""
+    if len(subject.strip()) < 8 or len(description.strip()) < 15:
+        return (
+            "Not enough detail to raise a ticket yet. Ask the user what the issue is "
+            "(what happened, when, any error message) before calling this tool again."
+        )
     ticket_id = _new_ticket_id()
     conn = _get_conn()
     conn.execute(
