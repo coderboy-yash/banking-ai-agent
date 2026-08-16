@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { MessageCircle, Send, X } from 'lucide-react'
+import { Maximize2, MessageCircle, Minimize2, Send, X } from 'lucide-react'
 import { sendMessage } from '../api/chat'
 
 interface ChatMessage {
@@ -21,11 +21,12 @@ function getSessionId() {
 const GREETING: ChatMessage = {
   id: 'greeting',
   role: 'assistant',
-  text: "Hi! I'm the Yash Bank Assistant. Ask me about accounts, cards, or loans.",
+  text: "Hi! I'm the Yash Bank Assistant. Ask me about accounts, cards, or loans — I can also raise a support ticket for you.",
 }
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([GREETING])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -64,19 +65,38 @@ export function ChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50">
       {open && (
-        <div className="mb-4 w-96 max-w-[calc(100vw-3rem)] h-[520px] max-h-[70vh] rounded-xl border-2 border-maroon-400 bg-white shadow-2xl flex flex-col overflow-hidden">
+        <div
+          className={
+            expanded
+              ? 'mb-4 fixed inset-6 md:inset-12 rounded-xl border-2 border-maroon-400 bg-white shadow-2xl flex flex-col overflow-hidden'
+              : 'mb-4 w-96 max-w-[calc(100vw-3rem)] h-[520px] max-h-[70vh] rounded-xl border-2 border-maroon-400 bg-white shadow-2xl flex flex-col overflow-hidden'
+          }
+        >
           <div className="flex items-center justify-between bg-maroon-900 px-4 py-3">
             <span className="text-white text-sm font-semibold">Yash Bank Assistant</span>
-            <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white">
-              <X className="size-5" strokeWidth={1.75} />
-            </button>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setExpanded((v) => !v)}
+                className="text-white/70 hover:text-white"
+                aria-label={expanded ? 'Minimize chat' : 'Maximize chat'}
+              >
+                {expanded ? (
+                  <Minimize2 className="size-4.5" strokeWidth={1.75} />
+                ) : (
+                  <Maximize2 className="size-4.5" strokeWidth={1.75} />
+                )}
+              </button>
+              <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white" aria-label="Close chat">
+                <X className="size-5" strokeWidth={1.75} />
+              </button>
+            </div>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+          <div ref={scrollRef} className={`flex-1 overflow-y-auto px-4 py-4 space-y-3 ${expanded ? 'max-w-3xl mx-auto w-full' : ''}`}>
             {messages.map((m) => (
               <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div
-                  className={`max-w-[80%] rounded-xl px-3.5 py-2 text-sm leading-relaxed ${
+                  className={`max-w-[80%] rounded-xl px-3.5 py-2 leading-relaxed ${expanded ? 'text-base px-4 py-2.5' : 'text-sm'} ${
                     m.role === 'user' ? 'bg-maroon-800 text-white' : 'bg-slate-100 text-slate-900'
                   }`}
                 >
@@ -91,13 +111,16 @@ export function ChatWidget() {
             )}
           </div>
 
-          <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-slate-200 p-3">
+          <form
+            onSubmit={handleSubmit}
+            className={`flex items-center gap-2 border-t border-slate-200 p-3 ${expanded ? 'max-w-3xl mx-auto w-full' : ''}`}
+          >
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about accounts, cards, loans…"
-              className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600"
+              className={`flex-1 rounded-lg border border-slate-300 px-3 py-2 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 ${expanded ? 'text-base py-2.5' : 'text-sm'}`}
             />
             <button
               type="submit"

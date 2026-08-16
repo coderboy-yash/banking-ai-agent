@@ -94,3 +94,8 @@ Format:
 - Did: assistant was happily answering math, general knowledge, current events, personal questions — not scoped to banking at all. Added an explicit SCOPE instruction to the system prompt: decline off-topic questions in one line and redirect to banking, don't answer them first
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
+
+## 2026-08-16 — Chat widget maximize button + first real agent tool (support tickets)
+- Did: chat window was too small to read comfortably — added a maximize/minimize toggle in the widget header (expands to most of the viewport, bigger text). Also gave the agent its first actual tool: raise_support_ticket and check_ticket_status, turning it from pure Q&A into a real tool-calling LangGraph agent (conditional edges + ToolNode, standard ReAct-style loop)
+- Tech: langchain_core.tools + langgraph.prebuilt (ToolNode, tools_condition) — no new deps, both already came with langgraph/langchain-core; tickets stored in a local tickets.sqlite (stdlib sqlite3, gitignored)
+- Issues: none — curl-verified a ticket gets raised with sensible subject/description extracted from a natural-language complaint, status lookup works, off-topic refusal and plain FAQ answers still work (no regression), browser-verified maximize + ticket flow, no console errors, build clean
