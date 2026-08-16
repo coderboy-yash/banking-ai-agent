@@ -1,6 +1,6 @@
 import type { Account, Transaction, User } from '../types'
 
-export const DEMO_EMAIL = 'demo@meridian.bank'
+export const DEMO_EMAIL = 'demo@yashbank.com'
 export const DEMO_PASSWORD = 'password123'
 
 export const seedUser: User = {

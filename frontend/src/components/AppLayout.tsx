@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { ArrowLeftRight, Landmark, LayoutDashboard, ListOrdered, LogOut, User as UserIcon } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import { initials } from '../lib/format'
 
 const navItems = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/transactions', label: 'Transactions', icon: ListOrdered, end: false },
   { to: '/transfer', label: 'Transfer', icon: ArrowLeftRight, end: false },
   { to: '/profile', label: 'Profile', icon: UserIcon, end: false },
@@ -16,11 +16,11 @@ export function AppLayout({ title, children }: { title: string; children: ReactN
 
   return (
     <div className="min-h-screen bg-slate-50 flex">
-      <aside className="w-64 shrink-0 bg-navy-950 text-navy-100 flex flex-col">
-        <div className="flex items-center gap-2 px-6 py-6">
+      <aside className="w-64 shrink-0 bg-maroon-950 text-maroon-100 flex flex-col">
+        <Link to="/dashboard" className="flex items-center gap-2 px-6 py-6">
           <Landmark className="size-6 text-white" strokeWidth={1.75} />
-          <span className="text-white font-semibold text-lg tracking-tight">Meridian Bank</span>
-        </div>
+          <span className="text-white font-semibold text-lg tracking-tight">Yash Bank</span>
+        </Link>
         <nav className="flex-1 px-3 space-y-1">
           {navItems.map(({ to, label, icon: Icon, end }) => (
             <NavLink
@@ -30,8 +30,8 @@ export function AppLayout({ title, children }: { title: string; children: ReactN
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
-                    ? 'bg-navy-800 text-white'
-                    : 'text-navy-100/70 hover:bg-navy-900 hover:text-white'
+                    ? 'bg-maroon-800 text-white'
+                    : 'text-maroon-100/70 hover:bg-maroon-900 hover:text-white'
                 }`
               }
             >
@@ -42,7 +42,7 @@ export function AppLayout({ title, children }: { title: string; children: ReactN
         </nav>
         <button
           onClick={logout}
-          className="flex items-center gap-3 mx-3 mb-6 rounded-lg px-3 py-2.5 text-sm font-medium text-navy-100/70 hover:bg-navy-900 hover:text-white transition-colors"
+          className="flex items-center gap-3 mx-3 mb-6 rounded-lg px-3 py-2.5 text-sm font-medium text-maroon-100/70 hover:bg-maroon-900 hover:text-white transition-colors"
         >
           <LogOut className="size-4.5" strokeWidth={1.75} />
           Log out
@@ -54,7 +54,7 @@ export function AppLayout({ title, children }: { title: string; children: ReactN
           <h1 className="text-xl font-semibold text-slate-900">{title}</h1>
           <div className="flex items-center gap-3">
             <span className="text-sm text-slate-600">{user?.name}</span>
-            <div className="size-9 rounded-full bg-navy-700 text-white text-sm font-semibold flex items-center justify-center">
+            <div className="size-9 rounded-full bg-maroon-800 text-white text-sm font-semibold flex items-center justify-center">
               {user ? initials(user.name) : ''}
             </div>
           </div>

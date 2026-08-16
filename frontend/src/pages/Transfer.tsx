@@ -8,7 +8,7 @@ import { formatCurrency, maskAccountNumber } from '../lib/format'
 import type { Account } from '../types'
 
 const inputClass =
-  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-transparent'
+  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent'
 
 export default function Transfer() {
   const { user } = useAuth()
@@ -129,7 +129,7 @@ export default function Transfer() {
               <button
                 type="submit"
                 disabled={submitting || !fromAccountId}
-                className="w-full rounded-lg bg-navy-900 py-2.5 text-sm font-semibold text-white hover:bg-navy-800 disabled:opacity-60 transition-colors"
+                className="w-full rounded-lg bg-maroon-900 py-2.5 text-sm font-semibold text-white hover:bg-maroon-800 disabled:opacity-60 transition-colors"
               >
                 {submitting ? 'Sending…' : 'Send transfer'}
               </button>

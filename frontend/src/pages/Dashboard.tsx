@@ -45,7 +45,7 @@ export default function Dashboard() {
               <h2 className="text-base font-semibold text-slate-900">Recent Transactions</h2>
               <Link
                 to="/transactions"
-                className="flex items-center gap-1 text-sm font-medium text-navy-700 hover:text-navy-900"
+                className="flex items-center gap-1 text-sm font-medium text-maroon-700 hover:text-maroon-900"
               >
                 View all
                 <ArrowRight className="size-3.5" strokeWidth={2} />

@@ -5,7 +5,7 @@ import { AuthLayout } from '../components/AuthLayout'
 import { DEMO_EMAIL, DEMO_PASSWORD } from '../mocks/seed'
 
 const inputClass =
-  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-transparent'
+  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent'
 
 export default function Login() {
   const { login } = useAuth()
@@ -21,7 +21,7 @@ export default function Login() {
     setSubmitting(true)
     try {
       await login(email, password)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
@@ -58,7 +58,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-navy-900 py-2.5 text-sm font-semibold text-white hover:bg-navy-800 disabled:opacity-60 transition-colors"
+          className="w-full rounded-lg bg-maroon-900 py-2.5 text-sm font-semibold text-white hover:bg-maroon-800 disabled:opacity-60 transition-colors"
         >
           {submitting ? 'Signing in…' : 'Sign in'}
         </button>
@@ -68,7 +68,7 @@ export default function Login() {
       </p>
       <p className="mt-4 text-sm text-slate-600 text-center">
         Don't have an account?{' '}
-        <Link to="/signup" className="font-medium text-navy-700 hover:text-navy-900">
+        <Link to="/signup" className="font-medium text-maroon-700 hover:text-maroon-900">
           Sign up
         </Link>
       </p>

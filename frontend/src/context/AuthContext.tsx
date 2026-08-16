@@ -17,14 +17,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const stored = localStorage.getItem('meridian_user')
+    const stored = localStorage.getItem('yash_user')
     if (stored) setUser(JSON.parse(stored))
     setLoading(false)
   }, [])
 
   function persist(token: string, user: User) {
-    localStorage.setItem('meridian_token', token)
-    localStorage.setItem('meridian_user', JSON.stringify(user))
+    localStorage.setItem('yash_token', token)
+    localStorage.setItem('yash_user', JSON.stringify(user))
     setUser(user)
   }
 
@@ -39,8 +39,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   function logout() {
-    localStorage.removeItem('meridian_token')
-    localStorage.removeItem('meridian_user')
+    localStorage.removeItem('yash_token')
+    localStorage.removeItem('yash_user')
     setUser(null)
   }
 

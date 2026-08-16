@@ -35,7 +35,7 @@ export default function Transactions() {
         <select
           value={accountId}
           onChange={(e) => setAccountId(e.target.value)}
-          className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-navy-600"
+          className="rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-maroon-600"
         >
           <option value="all">All accounts</option>
           {accounts.map((a) => (

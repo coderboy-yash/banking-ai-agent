@@ -1,4 +1,4 @@
-# Meridian Bank — frontend
+# Yash Bank — frontend
 
 React + TypeScript + Tailwind banking UI. Runs against mock data by default.
 
@@ -8,4 +8,4 @@ npm install
 npm run dev
 ```
 
-Demo login: `demo@meridian.bank` / `password123`
+Demo login: `demo@yashbank.com` / `password123`

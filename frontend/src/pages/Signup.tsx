@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import { AuthLayout } from '../components/AuthLayout'
 
 const inputClass =
-  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-navy-600 focus:border-transparent'
+  'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent'
 
 export default function Signup() {
   const { signup } = useAuth()
@@ -21,7 +21,7 @@ export default function Signup() {
     setSubmitting(true)
     try {
       await signup(name, email, password)
-      navigate('/')
+      navigate('/dashboard')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong')
     } finally {
@@ -30,7 +30,7 @@ export default function Signup() {
   }
 
   return (
-    <AuthLayout title="Create your account" subtitle="Open a Meridian checking account in minutes">
+    <AuthLayout title="Create your account" subtitle="Open a Yash Bank checking account in minutes">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1.5">Full name</label>
@@ -70,14 +70,14 @@ export default function Signup() {
         <button
           type="submit"
           disabled={submitting}
-          className="w-full rounded-lg bg-navy-900 py-2.5 text-sm font-semibold text-white hover:bg-navy-800 disabled:opacity-60 transition-colors"
+          className="w-full rounded-lg bg-maroon-900 py-2.5 text-sm font-semibold text-white hover:bg-maroon-800 disabled:opacity-60 transition-colors"
         >
           {submitting ? 'Creating account…' : 'Create account'}
         </button>
       </form>
       <p className="mt-5 text-sm text-slate-600 text-center">
         Already have an account?{' '}
-        <Link to="/login" className="font-medium text-navy-700 hover:text-navy-900">
+        <Link to="/login" className="font-medium text-maroon-700 hover:text-maroon-900">
           Sign in
         </Link>
       </p>

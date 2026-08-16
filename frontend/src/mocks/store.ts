@@ -20,7 +20,7 @@ interface MockDB {
   transactions: Transaction[]
 }
 
-const STORAGE_KEY = 'meridian_mock_db'
+const STORAGE_KEY = 'yash_mock_db'
 
 function seedDB(): MockDB {
   return {

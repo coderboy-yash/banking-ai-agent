@@ -20,7 +20,7 @@ export default function Profile() {
     <AppLayout title="Profile">
       <div className="max-w-md space-y-6">
         <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm flex items-center gap-4">
-          <div className="size-14 rounded-full bg-navy-700 text-white text-lg font-semibold flex items-center justify-center">
+          <div className="size-14 rounded-full bg-maroon-700 text-white text-lg font-semibold flex items-center justify-center">
             {initials(user.name)}
           </div>
           <div>
