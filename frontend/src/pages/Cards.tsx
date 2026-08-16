@@ -76,9 +76,9 @@ const creditCards: CardOffer[] = [
 function CardRow({ card }: { card: CardOffer }) {
   const Icon = card.icon
   return (
-    <div className="rounded-xl border-2 border-maroon-500 bg-white overflow-hidden">
+    <div className="rounded-xl border-2 border-maroon-400 bg-gradient-to-br from-maroon-800 to-maroon-950 overflow-hidden">
       <div className="p-6 pb-0">
-        <div className={`rounded-2xl border-2 border-maroon-500 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
+        <div className={`rounded-2xl border-2 border-maroon-400 bg-gradient-to-br ${card.gradient} p-5 shadow-xl aspect-[1.586/1] flex flex-col justify-between`}>
           <div className="flex items-center justify-between">
             <div className="w-9 h-6.5 rounded-md bg-gradient-to-br from-gold-400 to-gold-500" />
             <Icon className="size-6 text-white/80" strokeWidth={1.5} />
@@ -90,23 +90,23 @@ function CardRow({ card }: { card: CardOffer }) {
         </div>
       </div>
       <div className="p-6">
-        <h3 className="text-lg font-semibold text-slate-900">{card.name}</h3>
-        <p className="mt-1 text-sm text-slate-500">{card.bestFor}</p>
-        <p className="mt-2 text-sm text-slate-700">
+        <h3 className="text-lg font-semibold text-white">{card.name}</h3>
+        <p className="mt-1 text-sm text-white/70">{card.bestFor}</p>
+        <p className="mt-2 text-sm text-white/90">
           <span className="font-medium">Annual fee: </span>
           {card.annualFee}
         </p>
         <ul className="mt-4 space-y-2">
           {card.benefits.map((b) => (
-            <li key={b} className="flex items-start gap-2 text-sm text-slate-700">
-              <Check className="size-4 text-maroon-700 shrink-0 mt-0.5" strokeWidth={2} />
+            <li key={b} className="flex items-start gap-2 text-sm text-white/90">
+              <Check className="size-4 text-gold-400 shrink-0 mt-0.5" strokeWidth={2} />
               {b}
             </li>
           ))}
         </ul>
         <Link
           to="/signup"
-          className="mt-5 inline-flex items-center rounded-full bg-maroon-800 px-5 py-2 text-sm font-semibold text-white hover:bg-maroon-700 transition-colors"
+          className="mt-5 inline-flex items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-maroon-900 hover:bg-maroon-50 transition-colors"
         >
           Apply now
         </Link>
