@@ -95,6 +95,11 @@ Format:
 - Tech: prompt-only change (agent-service/app/agent/prompts.py), no code/deps
 - Issues: none — curl-tested 4 off-topic categories (math, science, personal, current events) all correctly declined, on-topic questions still answer normally, browser-verified too
 
+## 2026-08-16 — Chat widget quick-action chips
+- Did: opening the chat used to just show a text greeting with no hint of what the assistant could actually do. Added 5 clickable quick-action chips (icons + label) shown right after the greeting — explore accounts/cards/loans, raise a ticket, check ticket status. Clicking one sends that message immediately; chips disappear once the conversation starts so they don't clutter later turns
+- Tech: refactored the send logic into a shared sendText() used by both the form submit and the chip clicks, no new deps
+- Issues: none — browser-verified chips render, clicking sends + gets a real reply, chips vanish after first message, build clean
+
 ## 2026-08-16 — Chat widget maximize button + first real agent tool (support tickets)
 - Did: chat window was too small to read comfortably — added a maximize/minimize toggle in the widget header (expands to most of the viewport, bigger text). Also gave the agent its first actual tool: raise_support_ticket and check_ticket_status, turning it from pure Q&A into a real tool-calling LangGraph agent (conditional edges + ToolNode, standard ReAct-style loop)
 - Tech: langchain_core.tools + langgraph.prebuilt (ToolNode, tools_condition) — no new deps, both already came with langgraph/langchain-core; tickets stored in a local tickets.sqlite (stdlib sqlite3, gitignored)

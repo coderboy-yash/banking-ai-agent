@@ -1,11 +1,29 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
-import { Maximize2, MessageCircle, Minimize2, Send, X } from 'lucide-react'
+import {
+  Banknote,
+  CreditCard,
+  LifeBuoy,
+  Maximize2,
+  MessageCircle,
+  Minimize2,
+  Search,
+  Send,
+  Wallet,
+  X,
+  type LucideIcon,
+} from 'lucide-react'
 import { sendMessage } from '../api/chat'
 
 interface ChatMessage {
   id: string
   role: 'user' | 'assistant'
   text: string
+}
+
+interface QuickAction {
+  icon: LucideIcon
+  label: string
+  message: string
 }
 
 function getSessionId() {
@@ -21,8 +39,16 @@ function getSessionId() {
 const GREETING: ChatMessage = {
   id: 'greeting',
   role: 'assistant',
-  text: "Hi! I'm the Yash Bank Assistant. Ask me about accounts, cards, or loans — I can also raise a support ticket for you.",
+  text: "Hi! I'm the Yash Bank Assistant. Here's what I can help with:",
 }
+
+const QUICK_ACTIONS: QuickAction[] = [
+  { icon: Wallet, label: 'Explore accounts', message: 'What accounts do you offer?' },
+  { icon: CreditCard, label: 'Explore cards', message: 'What cards do you offer?' },
+  { icon: Banknote, label: 'Explore loans', message: 'What loans do you offer?' },
+  { icon: LifeBuoy, label: 'Raise a support ticket', message: "I'd like to raise a support ticket." },
+  { icon: Search, label: 'Check a ticket status', message: 'I want to check the status of a support ticket.' },
+]
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false)
@@ -36,13 +62,10 @@ export function ChatWidget() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
   }, [messages, sending])
 
-  async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    const text = input.trim()
+  async function sendText(text: string) {
     if (!text || sending) return
 
     setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: 'user', text }])
-    setInput('')
     setSending(true)
 
     try {
@@ -60,6 +83,14 @@ export function ChatWidget() {
     } finally {
       setSending(false)
     }
+  }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    const text = input.trim()
+    if (!text) return
+    setInput('')
+    await sendText(text)
   }
 
   return (
@@ -104,6 +135,23 @@ export function ChatWidget() {
                 </div>
               </div>
             ))}
+
+            {messages.length === 1 && (
+              <div className="flex flex-col items-start gap-2">
+                {QUICK_ACTIONS.map(({ icon: Icon, label, message }) => (
+                  <button
+                    key={label}
+                    onClick={() => sendText(message)}
+                    disabled={sending}
+                    className="flex items-center gap-2 rounded-full border border-maroon-300 bg-white px-3.5 py-2 text-sm text-maroon-800 hover:bg-maroon-50 disabled:opacity-50 transition-colors"
+                  >
+                    <Icon className="size-4" strokeWidth={1.75} />
+                    {label}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {sending && (
               <div className="flex justify-start">
                 <div className="rounded-xl bg-slate-100 px-3.5 py-2 text-sm text-slate-400">Typing…</div>
