@@ -57,3 +57,38 @@ export interface AuthResult {
   token: string
   user: User
 }
+
+export type LoanType = 'car' | 'home'
+export type LoanStatus = 'approved' | 'pending'
+
+export interface Loan {
+  id: string
+  type: LoanType
+  status: LoanStatus
+  principal: number
+  amountPaid: number
+  amountDue: number
+  interestRate: string
+  tenureMonths: number
+  appliedDate: string
+  approvedDate?: string
+}
+
+export type IssuedCardType = 'debit' | 'credit'
+
+export interface CardActivity {
+  id: string
+  date: string
+  description: string
+  amount: number
+}
+
+export interface IssuedCard {
+  id: string
+  type: IssuedCardType
+  name: string
+  last4: string
+  creditLimit?: number
+  outstanding?: number
+  recentActivity: CardActivity[]
+}

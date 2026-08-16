@@ -5,9 +5,12 @@ import { useAuth } from '../context/AuthContext'
 import { AppLayout } from '../components/AppLayout'
 import { AccountCard } from '../components/AccountCard'
 import { TransactionRow } from '../components/TransactionRow'
+import { LoanCard } from '../components/LoanCard'
+import { IssuedCardTile } from '../components/IssuedCardTile'
 import { getAccounts } from '../api/accounts'
 import { getTransactions } from '../api/transactions'
 import { formatCurrency } from '../lib/format'
+import { loans, issuedCards } from '../data/customerProfile'
 import type { Account, Transaction } from '../types'
 
 export default function Dashboard() {
@@ -45,6 +48,20 @@ export default function Dashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {accounts.map((account) => (
               <AccountCard key={account.id} account={account} />
+            ))}
+          </div>
+
+          <h2 className="mt-8 mb-3 text-base font-semibold text-slate-900">Your Loans</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {loans.map((loan) => (
+              <LoanCard key={loan.id} loan={loan} />
+            ))}
+          </div>
+
+          <h2 className="mt-8 mb-3 text-base font-semibold text-slate-900">Your Cards</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            {issuedCards.map((card) => (
+              <IssuedCardTile key={card.id} card={card} />
             ))}
           </div>
 
