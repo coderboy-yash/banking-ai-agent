@@ -22,6 +22,11 @@ requests) directly. `agent-service` calls back into `backend`'s API for data it 
 See [PROJECT_PLAN.md](PROJECT_PLAN.md) for the phased build order and current status —
 always check it at the start of a session to see what's done vs. in progress.
 
+See [PROGRESS.md](PROGRESS.md) for a plain-English, chronological log of what's actually
+been built, which tech was used at each step, and any issues/decisions hit along the
+way — read it to understand *how* the project got to its current state, not just what
+state it's in.
+
 ## Deliberately simulated (not real) capabilities
 
 These are scope decisions, not gaps to "fix":
@@ -57,5 +62,15 @@ Populated as each service is scaffolded (see PROJECT_PLAN.md Phase 1+).
 
 - Commit at the end of each meaningful chunk of progress (end of a phase or working
   sub-feature), push at the end of the day.
-- Update the checkboxes in `PROJECT_PLAN.md` as phases progress — that file is the
-  primary way a new session knows what state the project is in.
+- **Keep the three docs in sync — do this every time, not just at phase boundaries:**
+  1. Update the checkboxes in `PROJECT_PLAN.md` as work completes.
+  2. Update this file (`CLAUDE.md`) whenever architecture, tech stack, or scope
+     actually changes (not for routine progress — just when a decision here goes
+     stale).
+  3. Add a new dated entry to `PROGRESS.md` in plain English: what was done, which
+     tech was touched, and any issues/failures/workarounds hit. This is what makes it
+     possible to trace back and spot where something went wrong later, so don't skip
+     it even for small steps.
+- If requirements change mid-project, update `PROJECT_PLAN.md` (and `CLAUDE.md` if it
+  affects architecture/scope) immediately, and log the change in `PROGRESS.md` — don't
+  let the docs drift from what's actually being built.
