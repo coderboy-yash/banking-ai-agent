@@ -1,84 +1,11 @@
-import type { LucideIcon } from 'lucide-react'
-import { Check, CreditCard, Landmark, Plane, Wallet } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { PublicHeader } from '../components/PublicHeader'
 import { PublicFooter } from '../components/PublicFooter'
 import { PageBanner } from '../components/PageBanner'
 import { images } from '../lib/images'
+import { debitCards, creditCards, type CardOffer } from '../data/cards'
 
-interface CardOffer {
-  icon: LucideIcon
-  name: string
-  image: string
-  gradient: string
-  annualFee: string
-  bestFor: string
-  benefits: string[]
-}
-
-const debitCards: CardOffer[] = [
-  {
-    icon: Wallet,
-    name: 'Classic Debit Card',
-    image: images.textureWave,
-    gradient: 'from-slate-900/90 to-slate-950/90',
-    annualFee: 'Free for the first year, ₹150 thereafter',
-    bestFor: 'Everyday spending and ATM access',
-    benefits: [
-      'Daily ATM withdrawal limit of ₹25,000',
-      'Daily POS/online spend limit of ₹1,00,000',
-      'Accepted at all Yash Bank and partner ATMs nationwide',
-      'Zero-liability protection on reported fraud',
-    ],
-  },
-  {
-    icon: Landmark,
-    name: 'Platinum Debit Card',
-    image: images.textureInk,
-    gradient: 'from-maroon-900/90 to-black/90',
-    annualFee: '₹750 per year',
-    bestFor: 'Higher limits and travel perks',
-    benefits: [
-      'Daily ATM withdrawal limit of ₹1,00,000',
-      'Complimentary airport lounge access, 2 visits per quarter',
-      'Purchase protection insurance up to ₹1,00,000',
-      'Concierge services for travel and dining bookings',
-    ],
-  },
-]
-
-const creditCards: CardOffer[] = [
-  {
-    icon: CreditCard,
-    name: 'Rewards Credit Card',
-    image: images.textureGold,
-    gradient: 'from-maroon-800/90 to-maroon-950/90',
-    annualFee: '₹500, waived on annual spend above ₹1,00,000',
-    bestFor: 'Everyday spends, cashback and reward points',
-    benefits: [
-      '2 reward points for every ₹100 spent',
-      '5% cashback on groceries, dining and utility bills',
-      'Redeem points for statement credit, vouchers or products',
-      'Zero fraud liability on lost or stolen cards',
-    ],
-  },
-  {
-    icon: Plane,
-    name: 'Travel Credit Card',
-    image: images.textureNightEarth,
-    gradient: 'from-gold-500/80 to-maroon-950/90',
-    annualFee: '₹2,500, waived on annual spend above ₹3,00,000',
-    bestFor: 'Frequent flyers and international spends',
-    benefits: [
-      'Airline miles on every spend, accelerated on travel bookings',
-      'Unlimited complimentary airport lounge access',
-      'Zero forex markup on international transactions',
-      'Complimentary travel insurance up to ₹50,00,000',
-    ],
-  },
-]
-
-function CardRow({ card }: { card: CardOffer }) {
+function CardTile({ card }: { card: CardOffer }) {
   const Icon = card.icon
   return (
     <div className="rounded-xl border-2 border-maroon-400 bg-gradient-to-br from-maroon-800 to-maroon-950 overflow-hidden">
@@ -105,19 +32,11 @@ function CardRow({ card }: { card: CardOffer }) {
           <span className="font-medium">Annual fee: </span>
           {card.annualFee}
         </p>
-        <ul className="mt-4 space-y-2">
-          {card.benefits.map((b) => (
-            <li key={b} className="flex items-start gap-2 text-sm text-white/90">
-              <Check className="size-4 text-gold-400 shrink-0 mt-0.5" strokeWidth={2} />
-              {b}
-            </li>
-          ))}
-        </ul>
         <Link
-          to="/signup"
+          to={`/cards/${card.slug}`}
           className="mt-5 inline-flex items-center rounded-full bg-white px-5 py-2 text-sm font-semibold text-maroon-900 hover:bg-maroon-50 transition-colors"
         >
-          Apply now
+          View details
         </Link>
       </div>
     </div>
@@ -138,7 +57,7 @@ export default function Cards() {
         <h2 className="text-2xl font-semibold text-slate-900">Debit Cards</h2>
         <div className="mt-6 grid sm:grid-cols-2 gap-6">
           {debitCards.map((c) => (
-            <CardRow key={c.name} card={c} />
+            <CardTile key={c.slug} card={c} />
           ))}
         </div>
       </section>
@@ -147,7 +66,7 @@ export default function Cards() {
         <h2 className="text-2xl font-semibold text-slate-900">Credit Cards</h2>
         <div className="mt-6 grid sm:grid-cols-2 gap-6">
           {creditCards.map((c) => (
-            <CardRow key={c.name} card={c} />
+            <CardTile key={c.slug} card={c} />
           ))}
         </div>
       </section>

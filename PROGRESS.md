@@ -22,6 +22,11 @@ Format:
 - Tech: Vite, React, TypeScript, Tailwind v4, React Router, Axios, lucide-react, Inter font
 - Issues: found & fixed a race condition — transfer button was clickable before mock accounts finished loading (empty `fromAccountId`); now disabled until accounts load
 
+## 2026-08-16 — Per-card detail/apply pages
+- Did: added a dedicated page per card (`/cards/:slug`) — soft gradient hero, 2x2 perk-tile grid, full card visual, benefits, trust-signal strip, final CTA. Styled after IDFC FIRST's actual apply-flow page (linked by user), but deliberately did NOT replicate its real Aadhaar/PAN/OTP data-collection form — that's live PII collection, which conflicts with this project's own "KYC is simulated" scope decision and risks reading as a phishing template. Borrowed only the safe visual language (gradient bg, bold headline, perk tiles); "Apply now" routes to our existing real /signup flow instead
+- Tech: extracted card data into `data/cards.ts` (shared by list + detail pages, added slug/headline/perks fields); Cards list tiles now link to detail pages instead of straight to signup
+- Issues: none — browser-verified navigation, invalid slug redirects to /cards, login regression passes, build clean
+
 ## 2026-08-16 — Photo-textured card faces on Cards page
 - Did: replaced the flat color gradients on the debit/credit card visuals with real photo textures (abstract wave, ink smoke, gold bars, earth at night) under a tinted brand-color overlay — same layering technique as the page banners. Picked images thematically: gold bars for Rewards, earth-at-night city lights for Travel
 - Tech: 4 new verified Unsplash URLs added to lib/images.ts, no new deps

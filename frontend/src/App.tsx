@@ -4,6 +4,7 @@ import { ProtectedRoute } from './components/ProtectedRoute'
 import Home from './pages/Home'
 import Accounts from './pages/Accounts'
 import Cards from './pages/Cards'
+import CardDetail from './pages/CardDetail'
 import Loans from './pages/Loans'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/accounts" element={<Accounts />} />
         <Route path="/cards" element={<Cards />} />
+        <Route path="/cards/:slug" element={<CardDetail />} />
         <Route path="/loans" element={<Loans />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
