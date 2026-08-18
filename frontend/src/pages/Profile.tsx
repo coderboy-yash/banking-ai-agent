@@ -12,7 +12,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user) return
-    getAccounts(user.id).then(setAccounts)
+    getAccounts().then(setAccounts)
   }, [user])
 
   if (!user) return null

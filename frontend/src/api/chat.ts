@@ -9,7 +9,14 @@ export interface ChatReply {
   session_id: string
 }
 
-export async function sendMessage(message: string, sessionId: string): Promise<ChatReply> {
-  const res = await agentClient.post<ChatReply>('/chat', { message, session_id: sessionId })
+export type ChatMode = 'bank' | 'personal'
+
+export async function sendMessage(message: string, sessionId: string, mode: ChatMode): Promise<ChatReply> {
+  const token = localStorage.getItem('yash_token')
+  const res = await agentClient.post<ChatReply>(
+    '/chat',
+    { message, session_id: sessionId, mode },
+    token ? { headers: { Authorization: `Bearer ${token}` } } : undefined,
+  )
   return res.data
 }

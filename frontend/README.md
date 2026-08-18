@@ -1,6 +1,7 @@
 # Yash Bank — frontend
 
-React + TypeScript + Tailwind banking UI. Runs against mock data by default.
+React + TypeScript + Tailwind banking UI. Talks to the real `backend/` API — no mock
+mode, so `backend/` (and its Postgres) must be running to log in.
 
 ```
 cp .env.example .env

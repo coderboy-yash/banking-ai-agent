@@ -17,13 +17,13 @@ export default function Transactions() {
 
   useEffect(() => {
     if (!user) return
-    getAccounts(user.id).then(setAccounts)
+    getAccounts().then(setAccounts)
   }, [user])
 
   useEffect(() => {
     if (!user) return
     setLoading(true)
-    getTransactions(user.id, accountId === 'all' ? undefined : accountId).then((txns) => {
+    getTransactions(accountId === 'all' ? undefined : accountId).then((txns) => {
       setTransactions(txns)
       setLoading(false)
     })

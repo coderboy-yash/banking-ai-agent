@@ -24,7 +24,7 @@ export default function Transfer() {
 
   useEffect(() => {
     if (!user) return
-    getAccounts(user.id).then((accs) => {
+    getAccounts().then((accs) => {
       setAccounts(accs)
       if (accs[0]) setFromAccountId(accs[0].id)
     })
@@ -41,7 +41,7 @@ export default function Transfer() {
     }
     setSubmitting(true)
     try {
-      await transfer(user.id, { fromAccountId, toAccountNumber, amount: parsedAmount, memo })
+      await transfer({ fromAccountId, toAccountNumber, amount: parsedAmount, memo })
       setSuccess(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Transfer failed')

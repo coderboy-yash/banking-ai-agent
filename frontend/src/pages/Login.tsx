@@ -2,7 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { AuthLayout } from '../components/AuthLayout'
-import { DEMO_EMAIL, DEMO_PASSWORD } from '../mocks/seed'
+
+const DEMO_EMAIL = 'demo@yashbank.com'
+const DEMO_PASSWORD = 'password123'
 
 const inputClass =
   'w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent'

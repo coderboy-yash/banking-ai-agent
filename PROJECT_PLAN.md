@@ -55,8 +55,12 @@ locally).
 CLAUDE.md).
 
 ## Phase 5 — Personal budgeting agent
-- [ ] Pull user transaction history from Phase 1 DB via `backend` API
-- [ ] Categorize spend (rule + LLM hybrid)
+- [x] Pull user transaction history from Phase 1 DB via `backend` API — agent-service
+      forwards the user's JWT to `GET /api/accounts`/`GET /api/transactions`
+- [x] Categorize spend (by existing category field: spending insights, interest
+      summary, NL transaction search — a "Personal Assistant" chat mode, login-gated,
+      alongside the original "Bank Assistant" mode; not originally phased as a
+      toggle, added per direct request)
 - [ ] Generate budget plan (e.g. 50/30/20) with narrative explanation
 
 **Tech:** pandas, LangGraph LLM reasoning node.

@@ -11,20 +11,49 @@ demo@yashbank.com
 password123
 ```
 
-Use this to log in once the frontend is running (see below) — no signup needed. It's
-seeded with 4 accounts (~₹1 crore total), 50+ transactions, a car loan and a home
-loan, and a debit + credit card.
+Use this to log in once all three services are running (see below) — no signup
+needed. It's seeded with 4 accounts (~₹1 crore total), 50+ transactions, a car loan
+and a home loan, and a debit + credit card.
 
 ## Running locally
 
-Three services, each with its own `README.md` and `.env.example`:
+Three services (each also has its own `README.md` with endpoint details).
+
+### First-time setup
 
 ```
-backend/          # docker compose up -d && cp .env.example .env && go run ./cmd/server
-frontend/         # cp .env.example .env && npm install && npm run dev
-agent-service/    # python3 -m venv .venv && pip install -r requirements.txt && uvicorn app.main:app --port 8001
+# backend/
+docker compose up -d   # from repo root — Postgres on :5433
+cp backend/.env.example backend/.env
+(cd backend && go run ./cmd/server)
+
+# frontend/
+cp frontend/.env.example frontend/.env
+(cd frontend && npm install && npm run dev)
+
+# agent-service/
+python3 -m venv agent-service/.venv
+source agent-service/.venv/bin/activate
+pip install -r agent-service/requirements.txt
+cp agent-service/.env.example agent-service/.env   # paste your Groq API key (console.groq.com) into GROQ_API_KEY
+(cd agent-service && uvicorn app.main:app --reload --port 8001)
 ```
 
-The frontend runs on mock data by default (`VITE_USE_MOCK=true` in `frontend/.env`) —
-you can try the demo login without the backend or agent-service running at all. Flip
-it to `false` once the backend is up to use the real API.
+### Starting again later
+
+```
+# backend/ (Postgres container keeps running once started; re-run if stopped)
+docker compose up -d
+(cd backend && go run ./cmd/server)
+
+# frontend/
+(cd frontend && npm run dev)
+
+# agent-service/
+source agent-service/.venv/bin/activate
+(cd agent-service && uvicorn app.main:app --reload --port 8001)
+```
+
+The frontend always talks to the real backend — there's no mock-data mode. All three
+services (Postgres via `docker compose`, `backend/`, and `frontend/`) need to be
+running to log in. `agent-service/` is only needed for the chat widget.

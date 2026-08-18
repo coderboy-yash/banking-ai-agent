@@ -2,11 +2,20 @@
 
 FastAPI + LangGraph chatbot, backed by Groq's free-tier LLM.
 
+First-time setup:
+
 ```
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env   # paste your Groq API key (console.groq.com) into GROQ_API_KEY
+uvicorn app.main:app --reload --port 8001
+```
+
+To start it again later (from `agent-service/`, not repo root):
+
+```
+source .venv/bin/activate
 uvicorn app.main:app --reload --port 8001
 ```
 

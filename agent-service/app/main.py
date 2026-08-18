@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from langgraph.checkpoint.sqlite.aio import AsyncSqliteSaver
 
-from app.agent.graph import build_graph
+from app.agent.graph import build_bank_graph, build_personal_graph
 from app.api.routes import router
 from app.config import CHECKPOINT_DB_PATH
 
@@ -12,7 +12,8 @@ from app.config import CHECKPOINT_DB_PATH
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with AsyncSqliteSaver.from_conn_string(CHECKPOINT_DB_PATH) as checkpointer:
-        app.state.graph = build_graph(checkpointer)
+        app.state.bank_graph = build_bank_graph(checkpointer)
+        app.state.personal_graph = build_personal_graph(checkpointer)
         yield
 
 

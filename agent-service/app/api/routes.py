@@ -16,10 +16,16 @@ async def health():
 @router.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest, request: Request):
     session_id = req.session_id or str(uuid4())
+    thread_id = f"{session_id}:{req.mode}"
+
+    auth_header = request.headers.get("authorization", "")
+    auth_token = auth_header[7:].strip() if auth_header.lower().startswith("bearer ") else None
+
+    graph = request.app.state.personal_graph if req.mode == "personal" else request.app.state.bank_graph
     try:
-        result = await request.app.state.graph.ainvoke(
+        result = await graph.ainvoke(
             {"messages": [HumanMessage(content=req.message)]},
-            config={"configurable": {"thread_id": session_id}},
+            config={"configurable": {"thread_id": thread_id, "auth_token": auth_token}},
         )
     except Exception:
         raise HTTPException(status_code=502, detail="assistant is temporarily unavailable, try again")

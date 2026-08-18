@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     if (!user) return
-    Promise.all([getAccounts(user.id), getTransactions(user.id)]).then(([acc, txns]) => {
+    Promise.all([getAccounts(), getTransactions()]).then(([acc, txns]) => {
       setAccounts(acc)
       setTransactions(txns.slice(0, 5))
       setLoading(false)
